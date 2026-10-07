@@ -1,0 +1,873 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="个人学术主页">
+  <title>宋洁 Song Jie｜个人主页</title>
+  <style>
+    :root {
+      --red: #a6192e;
+      --red-dark: #811326;
+      --ink: #242424;
+      --muted: #687078;
+      --line: #e7e7e7;
+      --paper: #fff;
+      --soft: #f7f7f7;
+      --width: 1120px;
+      --nav-width: 1500px;
+    }
+    * { box-sizing: border-box; }
+    body { margin: 0; color: var(--ink); background: var(--paper); font: 16px/1.75 "Noto Sans SC", "Microsoft YaHei", system-ui, sans-serif; }
+    a { color: var(--red); }
+    .topbar { background: var(--red); color: white; box-shadow: 0 2px 8px #0002; }
+    .nav-wrap { max-width: var(--nav-width); min-height: 82px; margin: auto; padding: 0 30px; display: flex; align-items: center; gap: 20px; }
+    .site-identity { display: flex; align-items: center; flex: 0 0 auto; gap: 20px; }
+    .university-link { display: inline-flex; align-items: center; }
+    .pkulogo { display: block; width: 180px; height: auto; max-height: 58px; object-fit: contain; }
+    .identity-divider { width: 1px; height: 52px; background: #fff; opacity: .9; }
+    .brand { color: white; text-decoration: none; display: flex; flex-direction: column; line-height: 1.35; }
+    .brand-cn { font-size: 22px; font-weight: 700; white-space: nowrap; letter-spacing: .02em; }
+    .brand-en { font-family: Arial, sans-serif; font-size: 14px; font-weight: 400; white-space: nowrap; }
+    nav { display: flex; align-items: stretch; justify-content: flex-end; flex: 1; gap: 3px; padding-right: clamp(24px, 5vw, 76px); }
+    .nav-link { color: #fff; text-decoration: none; padding: 27px 13px; border-bottom: 3px solid transparent; white-space: nowrap; font-size: 15px; }
+    .nav-link:hover, .nav-link.active { background: #ffffff14; border-bottom-color: #fff; }
+    main { max-width: var(--width); min-height: calc(100vh - 150px); margin: auto; padding: 44px 24px 72px; }
+    @media (min-width: 1200px) {
+      main {
+        width: min(calc((100vw - var(--width)) / 2 + var(--width) - 96px - clamp(24px, 5vw, 76px)), calc(var(--nav-width) - 362px));
+        max-width: none;
+        margin-left: calc((100vw - var(--width)) / 2);
+        margin-right: auto;
+      }
+    }
+    .page { display: none; animation: enter .18s ease-out; }
+    .page.active { display: block; }
+    @keyframes enter { from { opacity: .5; transform: translateY(4px); } to { opacity: 1; transform: none; } }
+    .page-title { color: #222; font-size: 30px; line-height: 1.3; margin: 0 0 28px; padding-bottom: 14px; border-bottom: 2px solid var(--red); }
+    .home-layout { display: grid; grid-template-columns: minmax(0, 1fr) 270px; gap: 54px; align-items: start; }
+    .name-line { display: flex; align-items: baseline; gap: 17px; margin-bottom: 9px; }
+    .intro h1 { font-size: 36px; line-height: 1.25; margin: 0; letter-spacing: .04em; }
+    .intro .name-en { color: var(--muted); font: 500 21px/1.4 Arial, sans-serif; margin: 0; }
+    .roles { margin: 0 0 26px; color: #3e4348; line-height: 1.8; }
+    .bio-card { margin: 18px 0; padding: 20px 22px; background: #f8f9fa; border: 1px solid #e2e5e8; border-top: 3px solid #b77a83; border-radius: 2px; }
+    .bio-card.timeline-card { margin-right: 12px; }
+    .bio-card h2 { display: flex; align-items: center; gap: 10px; margin: 0 0 14px; color: #30363b; font-size: 20px; font-weight: 650; }
+    .bio-card h2::before { content: ""; display: block; flex: 0 0 4px; width: 4px; height: 25px; background: var(--red); }
+    .bio-list { list-style: none; margin: 0; padding: 0; }
+    .bio-list li { display: block; padding: 5px 0; line-height: 1.5; }
+    .bio-list li:first-child { padding-top: 0; }
+    .bio-list .date { display: block; color: var(--red); font-size: 14px; font-weight: 650; white-space: nowrap; }
+    .bio-list .detail { display: inline; margin-left: 12px; color: #222; font-size: 15px; font-weight: 600; }
+    .bio-list .note { display: inline; margin-left: 8px; color: #222; font-size: 15px; }
+    .bio-list .note::before { content: "· "; }
+    .course-groups { display: grid; gap: 6px; }
+    .course-group { line-height: 1.55; }
+    .course-group:last-child { padding-bottom: 0; }
+    .course-group h3 { display: inline; margin: 0; color: #30363b; font-size: 15px; font-weight: 650; }
+    .course-group h3::after { content: "："; }
+    .course-list { display: inline; margin: 0; padding: 0; list-style: none; }
+    .course-list li { display: inline; color: #454b50; font-size: 15px; }
+    .course-list li + li::before { content: "、"; }
+    .profile { justify-self: end; width: 270px; text-align: right; padding-top: 6px; }
+    .profile-photo { display: block; width: 230px; height: 285px; margin: 0 0 0 auto; object-fit: cover; object-position: center; border-radius: 2px; background: #eee; border: 1px solid var(--line); }
+    .contact { text-align: left; width: 230px; margin: 16px 0 0 auto; padding: 13px 15px; background: #f8f9fa; border: 1px solid #e2e5e8; border-left: 3px solid var(--red); }
+    .contact strong { display: block; margin-bottom: 3px; color: #3c4247; }
+    .contact a { overflow-wrap: anywhere; text-decoration: none; font-size: 14px; }
+    .news-section { margin-top: 52px; padding: 28px; background: #f8dfe4; border-top: 4px solid #292929; }
+    .news-heading { display: flex; align-items: baseline; gap: 14px; margin-bottom: 22px; }
+    .news-heading h2 { margin: 0; color: #171717; font-size: 32px; line-height: 1.2; letter-spacing: .025em; }
+    .news-heading span { color: #7d2935; font-size: 12px; font-weight: 700; letter-spacing: .12em; }
+    .news-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px; align-items: stretch; }
+    .news-card { --news-accent: #ad1f35; display: flex; flex-direction: column; min-width: 0; overflow: hidden; background: #fff; border-radius: 3px; border-bottom: 5px solid var(--news-accent); box-shadow: 0 5px 16px #5f213015; }
+    .news-card.accent-blue { --news-accent: #2767a6; }
+    .news-card.accent-gold { --news-accent: #c78320; }
+    .news-gallery { display: grid; grid-template-columns: 1fr; grid-auto-rows: 186px; gap: 3px; overflow: hidden; background: #edf0f3; }
+    .news-gallery.multi { grid-template-columns: repeat(2, minmax(0, 1fr)); grid-auto-rows: 91px; }
+    .news-gallery img { display: block; width: 100%; height: 100%; min-width: 0; object-fit: cover; }
+    .news-gallery.poster img { object-fit: contain; background: #f6f4f4; }
+    .news-copy { display: flex; flex: 1; flex-direction: column; padding: 17px 18px 16px; }
+    .news-date { align-self: flex-start; margin-bottom: 8px; padding: 3px 8px; color: var(--news-accent); background: color-mix(in srgb, var(--news-accent) 10%, white); font-size: 12px; font-weight: 750; letter-spacing: .04em; }
+    .news-card h3 { min-width: 0; margin: 0; color: #242424; font-size: 17px; line-height: 1.45; }
+    .news-title { display: block; width: 100%; overflow: visible; padding: 0; border: 0; background: transparent; color: inherit; font: inherit; text-align: left; text-overflow: clip; white-space: normal; overflow-wrap: anywhere; cursor: pointer; }
+    .news-title:hover, .news-title:focus-visible { color: var(--news-accent); text-decoration: underline; text-underline-offset: 3px; }
+    .news-dialog { width: min(900px, calc(100vw - 32px)); max-width: 900px; max-height: min(88vh, 900px); padding: 0; border: 0; border-radius: 5px; background: #fff; color: #222; box-shadow: 0 18px 60px #0004; }
+    .news-dialog[open] { display: flex; flex-direction: column; }
+    .news-dialog::backdrop { background: #16191dcc; backdrop-filter: blur(3px); }
+    .news-dialog-toolbar { display: flex; align-items: center; justify-content: space-between; flex: 0 0 auto; padding: 13px 20px; border-bottom: 1px solid #e4e6e8; background: #fafafa; }
+    .news-dialog-toolbar .news-date { margin: 0; }
+    .news-dialog-close { padding: 6px 12px; border: 1px solid #d8dce0; border-radius: 3px; background: #fff; color: #333; font: inherit; cursor: pointer; }
+    .news-dialog-close:hover { background: #f1f2f3; }
+    .news-dialog-content { flex: 1 1 auto; min-height: 0; overflow-y: auto; overscroll-behavior: contain; padding: 22px 26px 28px; }
+    .news-dialog-content h2 { margin: 0 0 14px; color: #222; font-size: 24px; line-height: 1.4; }
+    .news-detail > h2 { margin-bottom: 5px; }
+    .news-detail > .news-date { display: block; width: fit-content; margin: 0 0 14px; text-align: left; }
+    .news-dialog-content p { margin: 0; color: #454b50; font-size: 16px; line-height: 1.8; }
+    .news-detail > p:not(.news-caption) { text-indent: 2em; }
+    .news-detail-gallery { display: grid; grid-template-columns: 1fr; gap: 14px; margin: 18px 0 0; }
+    .news-detail-gallery figure { margin: 0; }
+    .news-detail-gallery img { display: block; width: 100%; height: auto; max-height: none; object-fit: contain; background: #f2f3f5; }
+    .news-caption { margin: 8px 0 0; padding: 0; border: 0; color: #687078; font-size: 13px; line-height: 1.6; text-align: center; }
+    .news-detail-gallery.poster img { object-fit: contain; }
+    .content-section { max-width: none; }
+    .content-section > p { color: var(--muted); margin-top: -15px; }
+    .content-cards { display: grid; gap: 14px; }
+    .content-card { margin: 0; }
+    .content-card p:last-child { margin-bottom: 0; }
+    .publication-card { min-width: 0; }
+    .pub-list { list-style: none; margin: 0; padding: 0; }
+    .pub-list li { display: grid; grid-template-columns: 36px minmax(0, 1fr); gap: 8px; padding: 2px 0; line-height: 1.5; }
+    .pub-index { color: #222; font-size: 15px; font-weight: 650; text-align: right; }
+    .pub-text { min-width: 0; overflow-wrap: anywhere; color: #222; font-size: 16px; }
+    .project-list { list-style: none; margin: 0; padding: 0; counter-reset: project-counter; }
+    .project-list.continued { counter-reset: project-counter 7; }
+    .project-item { position: relative; padding: 6px 0 6px 28px; counter-increment: project-counter; }
+    .project-item::before { content: counter(project-counter) "."; position: absolute; left: 0; top: 6px; color: #222; font-weight: 650; }
+    .project-item:first-child { padding-top: 0; }
+    .project-item:first-child::before { top: 0; }
+    .project-item:last-child { padding-bottom: 0; }
+    .project-item h3 { margin: 0 0 2px; color: #343a40; font-size: 16px; font-weight: 650; line-height: 1.45; }
+    .project-meta { margin: 0; color: #626a70; font-size: 14px; line-height: 1.45; }
+    .placeholder-copy { color: #737b81; }
+    .research-card > p { margin: 0; color: #343a40; line-height: 1.7; }
+    .research-card > h2 { color: #9b1c31; }
+    .research-overview-figure { margin: 14px 0 4px; padding: 8px; text-align: center; background: #fff; border: 1px solid #e4e7eb; }
+    .research-overview-figure img { display: block; width: 100%; max-width: 900px; height: auto; margin: auto; }
+    .research-figure-caption { margin-top: 5px; color: #626a70; font-size: 13px; }
+    .research-topic { margin-top: 14px; padding: 14px 16px; background: #fff; border: 1px solid #e4e7eb; border-left: 3px solid #b77a83; border-radius: 2px; }
+    .research-topic h3 { margin: 0 0 5px; color: #1676a8; font-size: 16px; font-weight: 650; }
+    .research-topic p { margin: 0; color: #41484e; line-height: 1.65; }
+    .research-topic figure { margin: 12px 0 0; padding: 7px; text-align: center; background: #fff; border: 1px solid #edf0f2; }
+    .research-topic figure img { display: block; width: 100%; max-width: 865px; height: auto; margin: auto; }
+    .research-topic figcaption { margin-top: 4px; color: #626a70; font-size: 13px; }
+    .entry { padding: 12px 0; line-height: 1.5; }
+    .entry:first-of-type { padding-top: 0; }
+    .entry h2 { margin: 0 0 5px; }
+    .entry p { margin: 4px 0; }
+    .meta { color: var(--muted); font-size: 14px; }
+    .award-list { margin: 0; padding-left: 1.7em; line-height: 1.45; }
+    .award-list li { padding: 2px 0; }
+    .team-placeholder { margin: 0; color: #737b81; }
+    .team-member { display: grid; grid-template-columns: 230px minmax(0, 1fr); gap: 26px; align-items: start; min-height: 320px; padding: 24px 0 26px; border-bottom: 1px solid #d9dde1; }
+    .team-member:last-child { padding-bottom: 0; border-bottom: 0; }
+    .team-member-photo { display: block; width: 230px; height: 270px; object-fit: cover; object-position: center 38%; }
+    .team-member-photo.photo-xiedongwei, .team-member-photo.photo-yangkaiming { object-position: center top; }
+    .team-member.no-photo-member { grid-template-columns: minmax(0, 1fr); min-height: 0; padding: 16px 0; }
+    .team-member-info { min-width: 0; }
+    .team-member-name { margin: 0 0 12px; color: #222; font-size: 21px; font-weight: 700; line-height: 1.45; }
+    .alumni-degree { margin: 0 0 9px !important; color: #41484e !important; font-size: inherit; line-height: 1.75 !important; }
+    .team-member-info p { margin: 0 0 9px; color: #41484e; line-height: 1.75; }
+    .team-member-info p:last-child { margin-bottom: 0; }
+    .team-member-label { color: #222; font-weight: 650; }
+    .team-education { display: grid; gap: 4px; }
+    .team-education-row { display: grid; grid-template-columns: 122px minmax(0, 1fr); column-gap: 10px; align-items: start; }
+    .team-education-time { white-space: nowrap; font-variant-numeric: tabular-nums; }
+    .team-member-slots { display: none; }
+    footer { text-align: center; border-top: 1px solid var(--line); padding: 20px; color: var(--muted); font-size: 14px; }
+    @media (max-width: 1000px) {
+      .news-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    }
+    @media (max-width: 760px) {
+      .nav-wrap { padding: 10px 16px; flex-wrap: wrap; gap: 8px; }
+      .site-identity { gap: 12px; width: 100%; }
+      .pkulogo { width: 132px; max-height: 46px; }
+      .identity-divider { height: 42px; }
+      .brand { flex: 1; min-width: 0; }
+      .brand-cn { font-size: 17px; white-space: normal; }
+      .brand-en { font-size: 11px; white-space: normal; }
+      nav { order: 3; flex-basis: 100%; overflow-x: auto; }
+      .nav-link { padding: 12px 11px; }
+      main { width: auto; max-width: none; margin: auto; padding: 30px 18px 52px; }
+      .home-layout { grid-template-columns: 1fr; gap: 28px; }
+      .profile { grid-row: 1; justify-self: stretch; width: auto; text-align: center; }
+      .profile-photo { width: 190px; height: 235px; margin: 0 auto; }
+      .contact { width: min(100%, 300px); margin: 16px auto 0; }
+      .news-section { margin-top: 38px; padding: 20px 16px; }
+      .news-heading { flex-wrap: wrap; gap: 5px 12px; }
+      .news-heading h2 { font-size: 27px; }
+      .news-grid { grid-template-columns: 1fr; gap: 16px; }
+      .news-gallery { grid-auto-rows: 210px; }
+      .news-gallery.multi { grid-auto-rows: 105px; }
+      .news-dialog-content { padding: 18px 16px 22px; }
+      .news-dialog-content h2 { font-size: 21px; }
+      .news-detail-gallery { gap: 10px; }
+      .intro h1 { font-size: 29px; }
+      .bio-card { padding: 17px; }
+      .bio-card.timeline-card { margin-right: 0; }
+      .name-line { gap: 11px; }
+      .intro .name-en { font-size: 18px; }
+      .page-title { font-size: 26px; }
+      .team-member { grid-template-columns: 145px minmax(0, 1fr); gap: 18px; min-height: 220px; padding: 20px 0 22px; }
+      .team-member-photo { width: 145px; height: 180px; }
+      .team-member-name { font-size: 19px; }
+      .team-education-row { grid-template-columns: 105px minmax(0, 1fr); column-gap: 7px; }
+    }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <div class="nav-wrap">
+      <div class="site-identity">
+          <a class="university-link" href="https://www.pku.edu.cn/" aria-label="北京大学官网">
+            <img class="pkulogo" src="images/pkulogo.png" alt="北京大学校徽与中英文校名">
+          </a>
+          <span class="identity-divider" aria-hidden="true"></span>
+          <a class="brand" href="https://amr.pku.edu.cn/index.htm" aria-label="北京大学先进制造与机器人学院官网">
+          <span class="brand-cn">先进制造与机器人学院</span>
+          <span class="brand-en">School of Advanced Manufacturing and Robotics</span>
+        </a>
+      </div>
+      <nav aria-label="主导航">
+        <a class="nav-link active" href="#home" data-page="home">个人介绍</a>
+        <a class="nav-link" href="#research" data-page="research">研究方向</a>
+        <a class="nav-link" href="#projects" data-page="projects">科研项目</a>
+        <a class="nav-link" href="#publications" data-page="publications">论文著作</a>
+        <a class="nav-link" href="#honors" data-page="honors">奖励荣誉</a>
+        <a class="nav-link" href="#team" data-page="team">团队成员</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="page active" id="home" aria-labelledby="home-title">
+      <div class="home-layout">
+        <article class="intro">
+          <div class="name-line">
+            <h1 id="home-title">宋洁</h1>
+            <p class="name-en">Jie Song</p>
+          </div>
+          <div class="roles" aria-label="职务与职称">
+            <div>北京大学先进制造与机器人学院党委书记</div>
+            <div>控制科学与系统工程系 教授</div>
+            <div>长江学者特聘教授</div>
+          </div>
+          <section class="bio-card timeline-card" aria-labelledby="education-title">
+            <h2 id="education-title">教育经历</h2>
+            <ul class="bio-list">
+              <li><span class="date">2000.09—2004.07</span><span class="detail">北京大学数学科学学院</span><span class="note">应用数学 · 理学学士</span></li>
+              <li><span class="date">2004.09—2006.06</span><span class="detail">清华大学工业工程系</span><span class="note">工业与系统工程 · 工学硕士</span></li>
+              <li><span class="date">2006.09—2010.06</span><span class="detail">清华大学工业工程系</span><span class="note">工业与系统工程 · 工学博士</span></li>
+              <li><span class="date">2007.08—2008.07</span><span class="detail">美国佐治亚理工学院</span><span class="note">工业与系统工程 · 工学博士</span></li>
+            </ul>
+          </section>
+          <section class="bio-card timeline-card" aria-labelledby="career-title">
+            <h2 id="career-title">工作经历</h2>
+            <ul class="bio-list">
+              <li><span class="date">2012.07—2018.07</span><span class="detail">北京大学工学院</span><span class="note">助理教授、副教授</span></li>
+              <li><span class="date">2018.07—2021.04</span><span class="detail">北京大学工学院</span><span class="note">北大博雅青年学者、长聘副教授</span></li>
+              <li><span class="date">2021.04—2022.12</span><span class="detail">北京大学工学院</span><span class="note">长江学者特聘教授、副院长、党委书记</span></li>
+              <li><span class="date">2022.12—2025.06</span><span class="detail">北京大学工学院</span><span class="note">长江学者特聘教授、党委书记</span></li>
+              <li><span class="date">2025.06—至今</span><span class="detail">北京大学先进制造与机器人学院</span><span class="note">长江学者特聘教授、党委书记</span></li>
+            </ul>
+          </section>
+          <section class="bio-card" aria-labelledby="courses-title">
+            <h2 id="courses-title">教授课程</h2>
+            <div class="course-groups">
+              <section class="course-group"><h3>数理基础</h3><ul class="course-list"><li>数理统计</li><li>应用统计学</li></ul></section>
+              <section class="course-group"><h3>管理基础</h3><ul class="course-list"><li>管理学</li><li>工程经济学</li><li>工业工程概论</li><li>管理前沿</li></ul></section>
+              <section class="course-group"><h3>决策优化</h3><ul class="course-list"><li>运筹学</li><li>数据与优化</li><li>智能体建模与决策</li><li>建模与仿真</li><li>智能体与智能系统工程</li></ul></section>
+              <section class="course-group"><h3>交叉前沿</h3><ul class="course-list"><li>前沿工学导论</li><li>数字低碳经济与技术</li></ul></section>
+              <section class="course-group"><h3>学术写作</h3><ul class="course-list"><li>论文写作与学术规范</li><li>论文写作</li></ul></section>
+            </div>
+          </section>
+        </article>
+        <aside class="profile">
+          <img class="profile-photo" src="images/jie-song.png" alt="宋洁教授照片">
+          <div class="contact">
+            <strong>电子邮箱</strong>
+            <div><a href="mailto:jie.song@pku.edu.cn">jie.song@pku.edu.cn</a></div>
+          </div>
+        </aside>
+      </div>
+      <section class="news-section" aria-labelledby="news-title">
+        <div class="news-heading"><h2 id="news-title">新闻</h2><span>ACADEMIC · CAMPUS · OUTREACH</span></div>
+        <div class="news-grid">
+          <article class="news-card accent-red"><div class="news-gallery"><img src="images/news/news-20.jpg" alt="举办首届“低碳算力服务系统智能优化”全国研究生暑期学校（配图1）" loading="lazy"></div><div class="news-copy"><time class="news-date">2026.08</time><h3><button class="news-title" type="button" data-news-open>举办首届“低碳算力服务系统智能优化”全国研究生暑期学校</button></h3></div><template class="news-detail-template"><div class="news-detail"><h2>举办首届“低碳算力服务系统智能优化”全国研究生暑期学校</h2><time class="news-date">2026.08</time><p>牵头举办首届“低碳算力服务系统智能优化”全国研究生暑期学校。依托北京大学“研究生教育创新计划”，围绕分布式智能优化、算电协同、市场机制及动态安全等开展系统授课，面向全国招收百名学员，培养低碳智能算力领域拔尖创新人才。</p><div class="news-detail-gallery"><figure><img src="images/news/news-20.jpg" alt="举办首届“低碳算力服务系统智能优化”全国研究生暑期学校（配图1）" loading="lazy"></figure><figure><img src="images/news/news-21.png" alt="举办首届“低碳算力服务系统智能优化”全国研究生暑期学校（配图2）" loading="lazy"></figure><figure><img src="images/news/news-22.png" alt="举办首届“低碳算力服务系统智能优化”全国研究生暑期学校（配图3）" loading="lazy"></figure></div><p class="news-caption">第一届“低碳算力服务系统智能优化”全国研究生暑期学校</p></div></template></article>
+          <article class="news-card accent-blue"><div class="news-gallery"><img src="images/news/news-16.jpg" alt="推动北大—城市发展空天信息技术联合实验室落地济宁（配图1）" loading="lazy"></div><div class="news-copy"><time class="news-date">2026.05</time><h3><button class="news-title" type="button" data-news-open>推动北大—城市发展空天信息技术联合实验室落地济宁</button></h3></div><template class="news-detail-template"><div class="news-detail"><h2>推动北大—城市发展空天信息技术联合实验室落地济宁</h2><time class="news-date">2026.05</time><p>牵头推动北大—城市发展空天信息技术联合实验室落地济宁任城区。实验室聚焦低空智能装备、空天信息与能源、人工智能等关键技术攻关，主体建筑已完工，无人机、人形机器人、航空电机等5个产业项目已落地并将陆续试产，助力济宁培育低空经济新质生产力。</p><div class="news-detail-gallery"><figure><img src="images/news/news-16.jpg" alt="推动北大—城市发展空天信息技术联合实验室落地济宁（配图1）" loading="lazy"></figure><figure><img src="images/news/news-17.jpg" alt="推动北大—城市发展空天信息技术联合实验室落地济宁（配图2）" loading="lazy"></figure></div><p class="news-caption">济宁智能制造产业园，北大城市发展空天信息技术联合实验室场地实景</p></div></template></article>
+          <article class="news-card accent-gold"><div class="news-gallery"><img src="images/news/news-15.jpg" alt="赴鄂尔多斯市工业和信息化局调研交流（配图1）" loading="lazy"></div><div class="news-copy"><time class="news-date">2025.12</time><h3><button class="news-title" type="button" data-news-open>赴鄂尔多斯市工业和信息化局调研交流</button></h3></div><template class="news-detail-template"><div class="news-detail"><h2>赴鄂尔多斯市工业和信息化局调研交流</h2><time class="news-date">2025.12</time><p>带队赴鄂尔多斯市工业和信息化局调研交流。围绕工业领域零碳低碳发展、数字化转型及“人工智能+”布局开展座谈，推动研究院科研与人才优势对接地方产业需求，促进关键技术攻关、应用场景建设与科研成果转化。</p><div class="news-detail-gallery"><figure><img src="images/news/news-15.jpg" alt="赴鄂尔多斯市工业和信息化局调研交流（配图1）" loading="lazy"></figure></div><p class="news-caption">鄂尔多斯能源产业座谈会现场，宋洁教授与地方工信部门座谈交流</p></div></template></article>
+          <article class="news-card accent-red"><div class="news-gallery"><img src="images/news/news-13.jpg" alt="赴鄂托克旗、准格尔旗开展项目调研（配图1）" loading="lazy"></div><div class="news-copy"><time class="news-date">2025.09</time><h3><button class="news-title" type="button" data-news-open>赴鄂托克旗、准格尔旗开展项目调研</button></h3></div><template class="news-detail-template"><div class="news-detail"><h2>赴鄂托克旗、准格尔旗开展项目调研</h2><time class="news-date">2025.09</time><p>带队赴鄂托克旗、准格尔旗开展项目调研。走访君正能源化工、薛家湾供电公司，围绕企业智能化改造、虚拟电厂及新型电力系统韧性建设开展交流，推动人工智能与优化技术服务节能减碳和能源产业数智化转型。</p><div class="news-detail-gallery"><figure><img src="images/news/news-13.jpg" alt="赴鄂托克旗、准格尔旗开展项目调研（配图1）" loading="lazy"></figure><figure><img src="images/news/news-14.jpg" alt="赴鄂托克旗、准格尔旗开展项目调研（配图2）" loading="lazy"></figure></div><p class="news-caption">宋洁教授带队赴鄂托克旗、准格尔旗开展专题调研工作</p></div></template></article>
+          <article class="news-card accent-blue"><div class="news-gallery"><img src="images/news/news-09.jpg" alt="赴湖南株洲开展调研交流（配图1）" loading="lazy"></div><div class="news-copy"><time class="news-date">2025.09</time><h3><button class="news-title" type="button" data-news-open>赴湖南株洲开展调研交流</button></h3></div><template class="news-detail-template"><div class="news-detail"><h2>赴湖南株洲开展调研交流</h2><time class="news-date">2025.09</time><p>带队赴湖南省株洲市开展调研交流。出席第四届北斗规模应用国际峰会，走访机器人、工业自动化企业，并担任“青创有话说”活动创业导师，将产业需求转化为实践课题，提升学生工程创新能力。</p><div class="news-detail-gallery"><figure><img src="images/news/news-09.jpg" alt="赴湖南株洲开展调研交流（配图1）" loading="lazy"></figure><figure><img src="images/news/news-10.jpg" alt="赴湖南株洲开展调研交流（配图2）" loading="lazy"></figure><figure><img src="images/news/news-11.jpg" alt="赴湖南株洲开展调研交流（配图3）" loading="lazy"></figure><figure><img src="images/news/news-12.jpg" alt="赴湖南株洲开展调研交流（配图4）" loading="lazy"></figure></div><p class="news-caption">宋洁教授宋洁书记与创业青年交流，带队走访 Kingcera 企业展厅，师生现场调研智能制造装备</p></div></template></article>
+          <article class="news-card accent-gold"><div class="news-gallery"><img src="images/news/news-18.png" alt="举办“数据与运筹智能”全国研究生暑期学校（配图1）" loading="lazy"></div><div class="news-copy"><time class="news-date">2025.07</time><h3><button class="news-title" type="button" data-news-open>举办“数据与运筹智能”全国研究生暑期学校</button></h3></div><template class="news-detail-template"><div class="news-detail"><h2>举办“数据与运筹智能”全国研究生暑期学校</h2><time class="news-date">2025.07</time><p>牵头举办“数据与运筹智能”全国研究生暑期学校。落实北大研究生教育创新计划，汇聚海内外高校、科研院所与行业专家，围绕智能优化、算电协同、市场机制及安全管理开展授课研讨与产业参访，搭建跨校研学平台，拓宽青年研究生科研学术视野。</p><div class="news-detail-gallery"><figure><img src="images/news/news-18.png" alt="举办“数据与运筹智能”全国研究生暑期学校（配图1）" loading="lazy"></figure></div><p class="news-caption">宋洁教授为“数据与运筹智能”全国研究生暑期学校作开学致辞</p></div></template></article>
+          <article class="news-card accent-red"><div class="news-gallery"><img src="images/news/cover-2025-05-card.jpg" alt="主讲中国自动化学会 CAA 科普大讲堂（配图1）" loading="lazy"></div><div class="news-copy"><time class="news-date">2025.05</time><h3><button class="news-title" type="button" data-news-open>主讲中国自动化学会 CAA 科普大讲堂</button></h3></div><template class="news-detail-template"><div class="news-detail"><h2>主讲中国自动化学会 CAA 科普大讲堂</h2><time class="news-date">2025.05</time><p>受邀担任中国自动化学会 CAA 科普大讲堂主讲专家，主讲《从一个 TOKEN 到一度电：绿色算力系统的优化之路》，面向公众科普算电协同、双碳前沿成果。</p><div class="news-detail-gallery poster"><figure><img src="images/news/news-06.jpg" alt="主讲中国自动化学会 CAA 科普大讲堂（配图1）" loading="lazy"></figure></div><p class="news-caption">北京大学教授宋洁，从一个TOKEN到一度电：绿色算力系统的优化之路</p></div></template></article>
+          <article class="news-card accent-blue"><div class="news-gallery"><img src="images/news/news-02.jpg" alt="工学院举办第44期党性教育读书班（配图1）" loading="lazy"></div><div class="news-copy"><time class="news-date">2025.03</time><h3><button class="news-title" type="button" data-news-open>工学院举办第44期党性教育读书班</button></h3></div><template class="news-detail-template"><div class="news-detail"><h2>工学院举办第44期党性教育读书班</h2><time class="news-date">2025.03</time><p>工学院举办第 44 期党性教育读书班开班仪式暨集体讨论活动，抓实基层党支部建设与分层分类党性教育，促进理论学习、人才培养和科研实践融合。</p><div class="news-detail-gallery"><figure><img src="images/news/news-02.jpg" alt="工学院举办第44期党性教育读书班（配图1）" loading="lazy"></figure><figure><img src="images/news/news-03.jpg" alt="工学院举办第44期党性教育读书班（配图2）" loading="lazy"></figure></div><p class="news-caption">宋洁教授主持党性读书班活动</p></div></template></article>
+          <article class="news-card accent-gold"><div class="news-gallery"><img src="images/news/cover-2024-12-card.jpg" alt="受邀主讲“百名科学家讲党课”（配图1）" loading="lazy"></div><div class="news-copy"><time class="news-date">2024.12</time><h3><button class="news-title" type="button" data-news-open>受邀主讲“百名科学家讲党课”</button></h3></div><template class="news-detail-template"><div class="news-detail"><h2>受邀主讲“百名科学家讲党课”</h2><time class="news-date">2024.12</time><p>受邀中国科协百名科学家讲党课，报告《新质生产力—高质量数据与人工智能驱动新型工业化》，将前沿科研成果转化为思政育人资源。</p><div class="news-detail-gallery poster"><figure><img src="images/news/news-04.jpg" alt="受邀主讲“百名科学家讲党课”（配图1）" loading="lazy"></figure><figure><img src="images/news/news-05.png" alt="受邀主讲“百名科学家讲党课”（配图2）" loading="lazy"></figure></div><p class="news-caption">宋洁教授担任《百名科学家讲党课》“大视野云课堂”主讲专家</p></div></template></article>
+          <article class="news-card accent-red"><div class="news-gallery"><img src="images/news/news-19.jpg" alt="会见英国思克莱德大学校长一行（配图1）" loading="lazy"></div><div class="news-copy"><time class="news-date">2023.10</time><h3><button class="news-title" type="button" data-news-open>会见英国思克莱德大学校长一行</button></h3></div><template class="news-detail-template"><div class="news-detail"><h2>会见英国思克莱德大学校长一行</h2><time class="news-date">2023.10</time><p>作为工学院党委书记，陪同校领导会见英国思克莱德大学校长吉姆·麦克唐纳一行。围绕工学、能源科学等领域合作，就联合博士培养、博士后交流、学生互访及科研创新等交换意见，推动两校深化工程教育与高层次人才培养合作。</p><div class="news-detail-gallery"><figure><img src="images/news/news-19.jpg" alt="会见英国思克莱德大学校长一行（配图1）" loading="lazy"></figure></div><p class="news-caption">会见合影</p></div></template></article>
+          <article class="news-card accent-blue"><div class="news-gallery"><img src="images/news/news-01.jpg" alt="依托新生军训开展国防思政教育（配图1）" loading="lazy"></div><div class="news-copy"><time class="news-date">2023.08</time><h3><button class="news-title" type="button" data-news-open>依托新生军训开展国防思政教育</button></h3></div><template class="news-detail-template"><div class="news-detail"><h2>依托新生军训开展国防思政教育</h2><time class="news-date">2023.08</time><p>依托新生军训开营仪式开展国防思政教育，强化新生纪律作风与品格淬炼，深化工学学子家国担当，推动党建思政与新生入学教育、人才培养深度融合。</p><div class="news-detail-gallery"><figure><img src="images/news/news-01.jpg" alt="依托新生军训开展国防思政教育（配图1）" loading="lazy"></figure></div><p class="news-caption">宋洁教授发表军训动员讲话</p></div></template></article>
+          <article class="news-card accent-gold"><div class="news-gallery"><img src="images/news/news-07.png" alt="致辞首届北大—清华工程博士联合学术论坛（配图1）" loading="lazy"></div><div class="news-copy"><time class="news-date">2022.11</time><h3><button class="news-title" type="button" data-news-open>致辞首届北大—清华工程博士联合学术论坛</button></h3></div><template class="news-detail-template"><div class="news-detail"><h2>致辞首届北大—清华工程博士联合学术论坛</h2><time class="news-date">2022.11</time><p>代表北京大学工学院在首届北大—清华工程博士联合学术论坛（第七期工程博士论坛）致辞，介绍北大工学院工程博士培养模式，推动两校高层次工程人才协同培养，促进学科交叉和科研交流，发挥新工科育人示范辐射作用。</p><div class="news-detail-gallery"><figure><img src="images/news/news-07.png" alt="致辞首届北大—清华工程博士联合学术论坛（配图1）" loading="lazy"></figure><figure><img src="images/news/news-08.png" alt="致辞首届北大—清华工程博士联合学术论坛（配图2）" loading="lazy"></figure></div><p class="news-caption">线上论坛腾讯会议参会人员屏幕合影，宋洁教授致辞</p></div></template></article>
+        </div>
+      </section>
+    </section>
+
+      <section class="page content-section" id="research">
+        <h1 class="page-title">研究方向</h1>
+        <div class="content-cards">
+          <section class="bio-card content-card research-card">
+            <h2>一、分布式优化与数据驱动决策</h2>
+            <p>面向云边端协同与大规模智能计算，研究分布式环境下的优化方法与数据驱动决策。围绕通信与计算资源受限、任务动态到达、数据分散异构等问题，开展分布式优化、在线资源配置与数据价值评估研究，探索算法效率、决策质量与资源开销之间的权衡，为大规模模型训练和智能服务提供方法支撑。</p>
+            <figure class="research-overview-figure"><img src="images/research/direction-1-overview.png" alt="分布式优化与数据驱动决策总体研究框架"><figcaption class="research-figure-caption">分布式优化与数据驱动决策总体框架</figcaption></figure>
+            <div class="research-topic"><h3>1. 分布式优化与高效计算</h3><p>面向大规模模型训练与高维优化中的通信和存储瓶颈，研究信息压缩与优化算法的协同设计。通过压缩信息表示、分解计算任务与协调节点更新，降低分布式求解的资源开销，分析信息损失对收敛速度和求解精度的影响，实现有限通信与计算资源下的高效优化。</p><figure><img src="images/research/direction-1-topic-1-compression.png" alt="通过信息压缩缓解通信与存储开销并协同设计优化算法"></figure><figure><img src="images/research/direction-1-topic-1-algorithm.png" alt="传统坐标梯度估计与随机块坐标梯度估计对比"></figure></div>
+            <div class="research-topic"><h3>2. 在线学习与动态资源配置</h3><p>面向任务持续到达、资源动态占用的计算服务系统，研究在线学习与调度决策方法。在未来需求未知、任务执行时间不确定的条件下，统筹任务分配、服务时延与资源利用，刻画当前决策对后续可用资源的影响，缓解排队拥塞与资源碎片化，提升动态环境中的服务效率。</p><figure><img src="images/research/direction-1-topic-2.png" alt="动态服务请求、在线调度及延迟与资源调度瓶颈示意图"></figure></div>
+            <div class="research-topic"><h3>3. 数据价值评估与协同学习</h3><p>面向数据分散、质量不均与分布差异，研究数据对模型性能和任务目标的贡献评估方法。通过数据价值量化、样本筛选与跨节点协同，识别与任务相关的高价值数据，优化数据参与训练的方式与资源投入，探索数据质量、学习效果与通信成本之间的关系，提高分布式数据的利用效率。</p><figure><img src="images/research/direction-1-topic-3.png" alt="数据中心人工智能中面向预测与决策的数据价值评估框架"></figure></div>
+          </section>
+          <section class="bio-card content-card research-card">
+            <h2>二、算电协同与绿色智算</h2>
+            <p>面向大规模智算基础设施的高效、可靠与低碳运行，研究计算任务、设备功耗与能源系统之间的耦合关系。围绕算力能耗建模、高可靠供能和算电协同调度，贯通从任务需求到电力负荷、从站内能效管理到跨区域资源配置的研究链条，探索服务质量、能源效率与供能可靠性的协同优化方法，支撑绿色智算基础设施建设与运行。</p>
+              <div class="research-topic"><h3>1. 算力能耗建模与数字孪生</h3><p>面向训练、微调与推理等任务，研究任务特征、模型配置和芯片运行状态对功耗的影响，建立从计算任务到设备能耗及数据中心负荷的映射模型。融合物理机理与运行数据，构建覆盖芯片、服务器和数据中心的多尺度数字孪生，通过状态感知与误差反馈持续校正模型，为负荷预测、能效评估和调度策略验证提供支撑。</p><figure><img src="images/research/direction-2-topic-1.png" alt="训练、微调与推理阶段的GPU功耗变化"></figure></div>
+              <div class="research-topic"><h3>2. 高可靠供能与电热协同管理</h3><p>面向高功率密度与负荷快速波动的智算场景，研究供配电、储能与冷却系统的协同配置和运行控制。刻画计算负载、设备发热与制冷需求之间的动态关系，结合交直流供电架构、UPS与储能协调控制，优化功率分配和冷量供给。在供电冗余与热安全约束下，提高供能效率，增强系统应对负荷突变和供能扰动的能力。</p><figure><img src="images/research/direction-2-topic-2-power-converter.png" alt="高压交流输入到低压直流输出的模块化电力电子变换结构"></figure><figure><img src="images/research/direction-2-topic-2-collaboration.png" alt="信息流、计算流、热力流和电力流协同管理框架"></figure></div>
+              <div class="research-topic"><h3>3. 算力调度与电网互动优化</h3><p>挖掘计算任务在执行时间、运行位置与资源分配上的调节空间，研究算力负荷与新能源出力、电价及电网调度信号的协同响应。统筹任务时移、跨区域迁移和储能调节，构建多时间尺度的算电联合优化方法，在满足任务时限与服务质量要求的基础上，促进绿电消纳和用电成本优化，探索智算中心参与需求响应、调峰调频与虚拟电厂的实现机制。</p><figure><img src="images/research/direction-2-topic-3.png" alt="数据中心与电网协同调度前后的功率曲线和空间分布"></figure></div>
+          </section>
+          <section class="bio-card content-card research-card">
+            <h2>三、大模型与人工智能</h2>
+            <p>面向复杂系统的智能决策与自主运行，研究大模型的知识组织、情景生成与感知行动能力。围绕智能体与知识自演化、新能源极端情景生成、具身智能与端侧部署，探索数据、知识和物理机理的融合方法，提升模型在动态环境中的推理、泛化与执行能力，支撑能源系统分析和智能装备应用。</p>
+              <div class="research-topic"><h3>1. 大模型智能体与知识自演化</h3><p>面向多步骤推理与复杂任务决策，研究大模型智能体的任务规划、工具调用与记忆管理方法。通过知识结构化表示、检索增强和交互反馈，将任务执行中的有效经验转化为可复用知识，支持知识更新与策略改进。探索长期交互中的记忆压缩、知识一致性与推理效率，提升智能体持续处理复杂任务的能力。</p><figure><img src="images/research/direction-3-topic-1.png" alt="通过提议策略、搜索解算和结果回写实现模型迭代改进的流程"></figure></div>
+              <div class="research-topic"><h3>2. 新能源极端情景生成</h3><p>面向极端天气下新能源出力突变与供需失衡风险，研究融合气象信息、历史运行数据和物理约束的情景生成方法。刻画风光出力的时空相关性与尾部特征，生成兼顾极端性、多样性和物理合理性的运行情景，为电力系统规划、调度策略检验与韧性评估提供支撑。</p><figure><img src="images/research/direction-3-topic-2.png" alt="基于气象数据嵌入和条件生成模型的极端能源情景生成，并展示美国县域能源极端情景"></figure></div>
+              <div class="research-topic"><h3>3. 具身智能与端侧模型部署</h3><p>面向机器人在真实环境中的感知、决策与执行，研究视觉—语言—动作模型与世界模型驱动的任务理解、技能学习和闭环控制。结合技能模块化、参数高效适配与模型压缩，探索云边端协同训练和推理方法，在端侧算力、存储与能耗约束下，兼顾动作精度、响应时延和跨场景泛化能力，推动智能模型向现场执行能力转化。</p><figure><img src="images/research/direction-3-topic-3.png" alt="视觉语言动作模型的仿真到现实控制及面向任务的智能系统架构"></figure></div>
+          </section>
+        </div>
+      </section>
+
+      <section class="page content-section" id="projects">
+        <h1 class="page-title">科研项目</h1>
+        <div class="content-cards">
+          <section class="bio-card content-card">
+            <h2>国家财政项目</h2>
+            <ol class="project-list">
+              <li class="project-item"><h3>低碳算力服务系统</h3><p class="project-meta">国家自然科学基金重大项目 · 负责人 · 2026.01–2030.12</p></li>
+              <li class="project-item"><h3>鄂尔多斯市科技“突围”工程揭榜挂帅：基于人工智能的氯碱化工产业数字孪生自主运行关键技术与应用示范</h3><p class="project-meta">负责人 · 2025.08–2028.08</p></li>
+              <li class="project-item"><h3>中国式现代化建设中超级工程发展战略研究</h3><p class="project-meta">工程院重大战略咨询研究项目 · 课题负责人 · 2023.10–2025.10</p></li>
+              <li class="project-item"><h3>数据要素市场治理体系建设的战略研究</h3><p class="project-meta">国家自然科学基金委员会专项项目 · 负责人 · 2023.01–2023.12</p></li>
+              <li class="project-item"><h3>基于在线学习与优化算法研究的数字化服务管理</h3><p class="project-meta">国家自然科学基金重点项目 · 负责人 · 2022.01–2026.12</p></li>
+              <li class="project-item"><h3>无人集群系统协同控制与决策</h3><p class="project-meta">国家自然科学基金创新群体项目 · 子课题负责人 · 2022.01–2026.12</p></li>
+              <li class="project-item"><h3>数据资源开发利用与安全防护研究</h3><p class="project-meta">国家发展和改革委员会重大研究课题 · 负责人 · 2021.07–2021.12</p></li>
+            </ol>
+          </section>
+          <section class="bio-card content-card">
+            <h2>校企合作</h2>
+            <ol class="project-list continued">
+              <li class="project-item"><h3>面向小型模块化反应堆能量梯级利用的低碳算电系统协同优化研究</h3><p class="project-meta">阿里（浙江爱橙技术发展有限公司）企业横向项目 · 负责人 · 2026.05–2027.05</p></li>
+              <li class="project-item"><h3>北大‑城市发展空天信息技术联合实验室</h3><p class="project-meta">济宁城发空天信息技术有限公司校企合作项目 · 负责人 · 2025.09–2028.09</p></li>
+              <li class="project-item"><h3>规模化数据中心集群高可靠能源供应关键技术研究与应用</h3><p class="project-meta">杭州阿里云飞天信息技术有限公司研发合作项目 · 参与人 · 2025.09–2026.09</p></li>
+              <li class="project-item"><h3>数据治理评估模型及数据资产评估研究项目（基于标注数据的数据质量评估与优化）</h3><p class="project-meta">石化盈科信息技术有限责任公司企业横向项目 · 负责人 · 2024.11–2025.10</p></li>
+              <li class="project-item"><h3>碳‑电‑证市场耦合环境下灵活性调节资源综合价值评估方法研究</h3><p class="project-meta">国网上海市电力公司应用理论基础研究项目 · 负责人 · 2024.04–2025.12</p></li>
+              <li class="project-item"><h3>华北电科院 2023 年储能电站状态估计技术研究</h3><p class="project-meta">华北电力科学研究院有限责任公司技术开发项目 · 负责人 · 2023.12–2025.09</p></li>
+              <li class="project-item"><h3>电力市场数据资产化路径与数据价值体系研究</h3><p class="project-meta">北京电力交易中心有限公司科学技术项目 · 负责人 · 2023.07–2024.12</p></li>
+              <li class="project-item"><h3>公有云场景下资源供需平衡推演关键技术研究合作项目</h3><p class="project-meta">华为云计算技术有限公司技术开发项目 · 负责人 · 2022.11–2023.11</p></li>
+            </ol>
+          </section>
+        </div>
+      </section>
+
+      <section class="page content-section" id="publications">
+        <h1 class="page-title">论文著作</h1>
+        <div class="content-cards">
+          <section class="bio-card content-card publication-card"><h2>期刊论文</h2><ol class="pub-list">
+            <li><span class="pub-index">1.</span><span class="pub-text">Ziwei Wang, Jie Song, Yixuan Liu, Jingtong Zha. “Reinforcement Learning Algorithm for Reusable Resource Allocation with Unknown Rental Time Distribution, European Journal of Operational Research, 2026, 331(1): 186-199.</span></li>
+            <li><span class="pub-index">2.</span><span class="pub-text">Rongjinzi Wang, Jie Song, Yunzhe Qiu, Li Su, Lei Zhu, Wenli Zhou. “Managing Life-cycle Capacity of Cloud Computing: Integrating Data-driven Optimization and Inventory Theory for Capacity Investment and Retirement.” Omega, 2026, 138: 103377.</span></li>
+            <li><span class="pub-index">3.</span><span class="pub-text">Zhaoyuan Wu, Jianxiao Wang, Lanyi Wei, Bo Li, Lin Chen, Lu Zhang, Daniel M. Kammen, Gengyin Li, Ming Zhou, Jie Song. “National-level Assessment of Infrastructure-coupled Roadside Solar Energy toward Transportation Decarbonization in China.” Nature Communications, 2026.</span></li>
+            <li><span class="pub-index">4.</span><span class="pub-text">Yanzhi Wang, Jianxiao Wang, Xi Chen, Yishen Wang, Jie Song. “Feature Selection for Battery Lifetime Prediction Using Explainable Machine Learning.” IEEE Transactions on Industry Applications, 62, no. 2 (2025): 1843-1852.</span></li>
+            <li><span class="pub-index">5.</span><span class="pub-text">Ziwei Wang, Jie Song, Yixuan Liu, Jingtong Zhao. “Reinforcement learning algorithm for reusable resource allocation with unknown rental time distribution.” European Journal of Operational Research, 331, no. 1 (2025): 186-199.</span></li>
+            <li><span class="pub-index">6.</span><span class="pub-text">Ke Zuo, Chao Shen, Peng Cheng, Jie Song, Mingyang Sun. “Probabilistic Robustness Verified Data-Driven Transient Security-Constrained Optimal Power Flow.” IEEE Transactions on Power Systems (2025).</span></li>
+            <li><span class="pub-index">7.</span><span class="pub-text">Rongjinzi Wang, Ruiyang Jin, Jie Song. “Localized Multi-Agent Reinforcement Learning for Cooperative Management of Supply Chains.” Asia-Pacific Journal of Operational Research, 42, no. 6 (2025).</span></li>
+            <li><span class="pub-index">8.</span><span class="pub-text">Kuo Wang, Jianxiao Wang, Yiyang Song, Jie Song, Gang Lü, Shengyu Wu, Zhongkui Li. “Resilience-oriented power system planning amidst extreme events via vehicle-to-grid coordination.” International Journal of Electrical Power &amp; Energy Systems, 172 (2025): 111202.</span></li>
+            <li><span class="pub-index">9.</span><span class="pub-text">Jianxiao Wang, Xinjiang Chen, Minghao Zhuang, Zhiyong Li, Ziwen Ruan, Yuhan Wang, Ning Zhang, Jie Song, Kebin He, Xi Lu. “Accelerating exploitation and integration of global renewable energy.” The Innovation, 6, no. 7 (2025): 100873.</span></li>
+            <li><span class="pub-index">12.</span><span class="pub-text">Jiarong Li, Jin Lin, Jianxiao Wang, Xi Lu, Chris P. Nielsen, Michael B. McElroy, Yonghua Song, Jie Song, Xuefeng Lyu, Mingkai Yu, Sirui Wu, Zhipeng Yu. “Redesigning electrification of China’s ammonia and methanol industry to balance decarbonization with power system security.” Nature Energy, 10, no. 6 (2025): 762-773.</span></li>
+            <li><span class="pub-index">13.</span><span class="pub-text">Pengya Wang, Li Pan, Guannan He, Gengyin Li, Jie Song, Ming Zhou, Jianxiao Wang. “Constructing a Biomass-Data Center Nexus for Circular Economy-based Energy Systems Integration.” IEEE Open Access Journal of Power and Energy, 12 (2025): 270-283.</span></li>
+            <li><span class="pub-index">14.</span><span class="pub-text">Zhaohao Ding, Jianxiao Wang, Yiyang Song, Xiaokang Zheng, Guannan He, Xiupeng Chen, Tiance Zhang, Wei-Jen Lee, Jie Song. “Tracking the carbon footprint of global generative artificial intelligence.” The Innovation, 6, no. 5 (2025): 100866.</span></li>
+            <li><span class="pub-index">17.</span><span class="pub-text">Xinming Han, Jianxiao Wang, Jiaxi Wu, Jie Song. “Energy-efficient cloud systems: Virtual machine consolidation with Γ-robustness optimization.” iScience, 28, no. 3 (2025): 111897.</span></li>
+            <li><span class="pub-index">18.</span><span class="pub-text">Yanzhi Wang, Jianxiao Wang, Haoran Zhang, Jie Song. “Bridging prediction and decision: Advances and challenges in data-driven optimization.” Nexus, 2, no. 1 (2025): 100057.</span></li>
+            <li><span class="pub-index">19.</span><span class="pub-text">Yanzhi Wang, Jianxiao Wang, Jie Song. “Data Purification for Improved Power Dispatch Against Renewable Uncertainty.” IEEE Transactions on Industrial Informatics, 21, no. 6 (2025): 4703-4712.</span></li>
+            <li><span class="pub-index">20.</span><span class="pub-text">Ziwei Wang, Jingtong Zhao, Jie Song. “Intelligent influencer selection in social networks for product promotions with crowd effect.” Information Sciences, 693 (2025): 121660.</span></li>
+            <li><span class="pub-index">21.</span><span class="pub-text">宋洁、黄静思、何冠楠、王剑晓. 水-能源-粮食纽带系统的风险测度与韧性提升研究[J]. 中国管理科学, 2025.</span></li>
+            <li><span class="pub-index">22.</span><span class="pub-text">Xinming Han, Yu Ouyang, Jie Song, Zihang Liu, Cong Wang. “Contrastive Learning for Enhanced Retrieval on Online Medical Platforms.” Asia-Pacific Journal of Operational Research, 42, no. 6 (2025): 2440022:1-2440022:21.</span></li>
+            <li><span class="pub-index">23.</span><span class="pub-text">Jingtong Zhao, Xin Pan, Van-Anh Truong, Jie Song. “Ranking and pricing under a cascade model of consumer review browsing.” IISE Transactions, 57, no. 1 (2025): 16-29.</span></li>
+            <li><span class="pub-index">24.</span><span class="pub-text">Jingsi Huang, Dongwei Xie, Yunzhe Qiu, Jianxiao Wang, Jie Song. “Green supply chain management: A renewable energy planning and dynamic inventory operations for perishable products.” International Journal of Production Research, 62, no. 24 (2024): 8924-8951.</span></li>
+            <li><span class="pub-index">25.</span><span class="pub-text">Guannan He, Yongkang Ding, Zhijun Wu, Xinjiang Chen, Da Zhang, Jie Song. “Environment-adaptive online learning for portable energy storage based on porous electrode model.” IEEE Transactions on Automation Science and Engineering, 22 (2024): 8386-8399.</span></li>
+            <li><span class="pub-index">27.</span><span class="pub-text">Jiaxi Wu, Pavel Popov, Wenquan Yang, Andrei Gudkov, Elizaveta Ponomareva, Xinming Han, Yunzhe Qiu, Jie Song, Stepan Romanov. “Hotspot-Aware Scheduling of Virtual Machines With Overcommitment for Ultimate Utilization in Cloud Datacenters.” IEEE Transactions on Automation Science and Engineering, 22 (2024): 6809-6821.</span></li>
+            <li><span class="pub-index">28.</span><span class="pub-text">Yang Zou, Ziwei Wang, Jingsi Huang, Jie Song, Luo Xu. “Multi-Agent Reinforcement Learning for Mobile Energy Resources Scheduling Amidst Typhoons.” IEEE Transactions on Industry Applications, 61, no. 1 (2024): 1683-1694.</span></li>
+            <li><span class="pub-index">29.</span><span class="pub-text">赵越、王衍之、宋洁、何璇. 需求预测视角下的医疗数据价值[J]. 中国管理科学, 2024.</span></li>
+            <li><span class="pub-index">33.</span><span class="pub-text">Yanzhi Wang, Jianxiao Wang, Feng Gao, Jie Song. “Unveiling value patterns via deep reinforcement learning in heterogeneous data analytics.” Patterns, 5, no. 5 (2024): 100965.</span></li>
+            <li><span class="pub-index">34.</span><span class="pub-text">Jing Ma, Huiwen Kong, Jianxiao Wang, Haiwang Zhong, Bo Li, Jie Song, Daniel M. Kammen. “Carbon-neutral pathway to mitigating transport-power grid cross-sector effects.” The Innovation, 5, no. 3 (2024): 100611.</span></li>
+            <li><span class="pub-index">35.</span><span class="pub-text">Yangze Zhou, Qingsong Wen, Jie Song, Xueyuan Cui, Yi Wang. “Load data valuation in multi-energy systems: An end-to-end approach.” IEEE Transactions on Smart Grid, 15, no. 5 (2024): 4564-4575.</span></li>
+            <li><span class="pub-index">36.</span><span class="pub-text">Xinjiang Chen, Yu Yang, Zongxian Wang, Jie Song, Jianxiao Wang, Guannan He. “Battery swapping station management with heterogeneous battery functionality degradation.” IEEE Transactions on Smart Grid, 16, no. 1 (2024): 478-490.</span></li>
+            <li><span class="pub-index">37.</span><span class="pub-text">Yanzhi Wang, Jie Song. “Dissecting renewable uncertainty via deconstructive analysis-based data valuation.” IEEE Transactions on Industry Applications, 61, no. 1 (2024): 1626-1635.</span></li>
+            <li><span class="pub-index">38.</span><span class="pub-text">Hanqi Wen, Jingtong Zhao, Van-Anh Truong, Jie Song. “Dynamic expansions of social followings with lotteries and give-aways.” IISE Transactions, 56, no. 4 (2024): 471-484.</span></li>
+            <li><span class="pub-index">39.</span><span class="pub-text">Jiaxi Wu, Wenquan Yang, Xinming Han, Yunzhe Qiu, Andrei Gudkov, Jie Song. “Hotspot resolution in cloud computing: A γ-robust knapsack approach for virtual machine migration.” Journal of Parallel and Distributed Computing, 186 (2024): 104817.</span></li>
+            <li><span class="pub-index">40.</span><span class="pub-text">Qiuyuan Ai, Zhijian Zhan, Cong Wang, Jie Song. “Incentive Mechanism Design for Sustainable Federated Learning Based on Reinforcement Learning.” Quarterly Journal of Economics and Management, 3, no. 1 (2024): 115-144.</span></li>
+            <li><span class="pub-index">44.</span><span class="pub-text">Ziwei Wang, Jie Song, Jingtong Zhao. “Enhancing product promotion in social networks: Leveraging adaptive discount-offering and the crowd effect.” IEEE Transactions on Engineering Management, 71 (2023): 1613-1628.</span></li>
+            <li><span class="pub-index">46.</span><span class="pub-text">Xinjiang Chen, Yu Yang, Jianxiao Wang, Jie Song, Guannan He. “Battery valuation and management for battery swapping station.” Energy, 279 (2023): 128120.</span></li>
+            <li><span class="pub-index">47.</span><span class="pub-text">Jianxiao Wang, Liudong Chen, Zhenfei Tan, Ershun Du, Nian Liu, Jing Ma, Mingyang Sun, Canbing Li, Jie Song, Xi Lu, Chin-Woo Tan, Guannan He. “Inherent spatiotemporal uncertainty of renewable power in China.” Nature Communications, 14, no. 1 (2023): 5379.</span></li>
+            <li><span class="pub-index">48.</span><span class="pub-text">Xinjiang Chen, Yu Yang, Jie Song, Jianxiao Wang, Guannan He. “Hybrid energy storage system optimization with battery charging and swapping coordination.” IEEE Transactions on Automation Science and Engineering, 21, no. 3 (2023): 4094-4105.</span></li>
+            <li><span class="pub-index">50.</span><span class="pub-text">宋洁、张帆、王榕金子. 新时期我国粮食安全管理的数字化研究[J]. Science &amp; Technology of Cereals, 2023.</span></li>
+            <li><span class="pub-index">51.</span><span class="pub-text">Zi Yang Wang, Jie Song, Xing Lin Feng. “A prediction model of patient satisfaction: Policy evaluation and sensitivity analysis.” Flexible Services and Manufacturing Journal, 35, no. 2 (2023): 455-486.</span></li>
+            <li><span class="pub-index">52.</span><span class="pub-text">Yongkang Ding, Guannan Qu, Xinjiang Chen, Jianxiao Wang, Jie Song, Guannan He. “Deep reinforcement learning-based spatiotemporal decision of utility-scale highway portable energy storage systems.” IEEE Transactions on Industry Applications, 60, no. 1 (2023): 966-975.</span></li>
+            <li><span class="pub-index">53.</span><span class="pub-text">Jianxiao Wang, Qi An, Yue Zhao, Guangsheng Pan, Jie Song, Qinran Hu, Chin-Woo Tan. “Role of electrolytic hydrogen in smart city decarbonization in China.” Applied Energy, 336 (2023): 120699.</span></li>
+            <li><span class="pub-index">54.</span><span class="pub-text">Jianxiao Wang, Feng Gao, Yangze Zhou, Qinglai Guo, Chin-Woo Tan, Jie Song, Yi Wang. “Data sharing in energy systems.” Advances in Applied Energy, 10 (2023): 100132.</span></li>
+            <li><span class="pub-index">56.</span><span class="pub-text">Ruiyang Jin, Yuke Zhou, Chao Lü, Jie Song. “Deep reinforcement learning-based strategy for charging station participating in demand response.” Applied Energy, 328 (2022): 120140.</span></li>
+            <li><span class="pub-index">57.</span><span class="pub-text">Yu Yang, Lin Chen, Jianxiao Wang, Yue Zhao, Jie Song. “Implications of power industry marketization for sustainable generation portfolios in China.” Journal of Cleaner Production, 378 (2022): 134541.</span></li>
+            <li><span class="pub-index">58.</span><span class="pub-text">Jie Song, Guannan He, Jianxiao Wang, Pingwen Zhang. “Shaping future low-carbon energy and transportation systems: Digital technologies and applications.” iEnergy, 1, no. 3 (2022): 285-305.</span></li>
+            <li><span class="pub-index">59.</span><span class="pub-text">Yuwen Zheng, Yifang Zheng, Guannan He, Jie Song. “Decomposition and decoupling analysis of electricity consumption carbon emissions in China.” Frontiers of Engineering Management, 9, no. 3 (2022): 486-498.</span></li>
+            <li><span class="pub-index">61.</span><span class="pub-text">Yinxiao Li, Yi Wang, Chongqing Kang, Jie Song, Guannan He, Qixin Chen. “Improving distributed PV integration with dynamic thermal rating of power distribution equipment.” iScience, 25, no. 8 (2022): 104808.</span></li>
+            <li><span class="pub-index">62.</span><span class="pub-text">Yuheng Zhang, Vivian Cheng, Dharik S. Mallapragada, Jie Song, Guannan He. “A model-adaptive clustering-based time aggregation method for low-carbon energy system optimization.” IEEE Transactions on Sustainable Energy, 14, no. 1 (2022): 55-64.</span></li>
+            <li><span class="pub-index">63.</span><span class="pub-text">Jingsi Huang, Fan Zhang, Jie Song, Wei Li. “An agent-based simulation model of wheat market operation: The benefit of support price.” Journal of Systems Science and Systems Engineering, 31, no. 4 (2022): 437-456.</span></li>
+            <li><span class="pub-index">66.</span><span class="pub-text">Ziwei Wang, Jie Song, Jingtong Zhao. “Dynamic Ranking of Physicians in Online Healthcare Platforms with Multiple Service Types.” City, Society, and Digital Transformation (2022): 217-234.</span></li>
+            <li><span class="pub-index">67.</span><span class="pub-text">Yuheng Zhang, Vivian Cheng, Dharik S. Mallapragada, Jie Song, Guannan He. “A Model-Adaptive Clustering Method for Low-Carbon Energy System Optimization.” IEEE Transactions on Sustainable Energy, 14, no. 1 (2022): 55-64.</span></li>
+            <li><span class="pub-index">68.</span><span class="pub-text">王娟、张一、黄晶、李由君、宋洁、张平文. 中国数字生态指数的测算与分析[J]. 电子政务, 2022.</span></li>
+            <li><span class="pub-index">69.</span><span class="pub-text">Xin Pan, Hanqi Wen, Ziwei Wang, Jie Song, Xing Lin Feng. “Physician ranking optimization based on patients’ browse behaviors and resource capacities.” Internet Research, 31, no. 6 (2021): 2076-2095.</span></li>
+            <li><span class="pub-index">70.</span><span class="pub-text">Jingyi Zhang, Yonghong Luo, Boya Wang, Chao Lü, Jennie Si, Jie Song. “Deep reinforcement learning for load shedding against short-term voltage instability in large power systems.” IEEE Transactions on Neural Networks and Learning Systems, 34, no. 8 (2021): 4249-4260.</span></li>
+            <li><span class="pub-index">71.</span><span class="pub-text">Yonghong Luo, Chao Lü, Lipeng Zhu, Jie Song. “Data-driven short-term voltage stability assessment based on spatial-temporal graph convolutional network.” International Journal of Electrical Power &amp; Energy Systems, 130 (2021): 106753.</span></li>
+            <li><span class="pub-index">72.</span><span class="pub-text">Yonghong Luo, Chao Lü, Lipeng Zhu, Jie Song. “Graph convolutional network-based interpretable machine learning scheme in smart grids.” IEEE Transactions on Automation Science and Engineering, 20, no. 1 (2021): 47-58.</span></li>
+          </ol></section>
+          <section class="bio-card content-card publication-card"><h2>会议论文</h2><ol class="pub-list">
+            <li><span class="pub-index">15.</span><span class="pub-text">Xu Wan, Chao Yang, Yang Cheng, Jie Song, Mingyang Sun. “SrSv: Integrating Sequential Rollouts with Sequential Value Estimation for Multi-agent Reinforcement Learning.” Proceedings of the AAAI Conference on Artificial Intelligence, 39, no. 22 (2025): 23333-23342.</span></li>
+            <li><span class="pub-index">26.</span><span class="pub-text">Yanzhi Wang, Jianxiao Wang, Jie Song. “Feature Valuation Toward Improved State Estimation for Automotive Lithium-Ion Battery.” 2024 IEEE Industry Applications Society Annual Meeting (IAS) (2024): 1-6.</span></li>
+            <li><span class="pub-index">30.</span><span class="pub-text">Xinjiang Chen, Jianxiao Wang, Zongxian Wang, Michael R. Davidson, R. Loch Macdonald, Jie Song, Guannan He. “A Planning Model for Flexibility Retrofitting of Coal-Fired Power Plants.” 2024 (2024): 921-926.</span></li>
+            <li><span class="pub-index">49.</span><span class="pub-text">Jingyue Sang, Puxiang Tan, Jianxiao Wang, Jie Song, Guannan He. “Forms of the Energy Internet Under Digital Transformation.” 2023 IEEE/IAS Industrial and Commercial Power System Asia (I&amp;CPS Asia) (2023): 1121-1129.</span></li>
+            <li><span class="pub-index">60.</span><span class="pub-text">Yanzhi Wang, Yue Zhao, Jie Song, Hongju Liu. “What drives patients to choose a physician online? A study based on tree models and SHAP values.” 2022 IEEE 18th International Conference on Automation Science and Engineering (CASE) (2022).</span></li>
+            <li><span class="pub-index">64.</span><span class="pub-text">Yuke Zhou, Ruiyang Jin, Jie Song. “An Online Learning Method for Industrial Demand Response Based on Load Disaggregation.” 2022 IEEE/IAS Industrial and Commercial Power System Asia (I&amp;CPS Asia) (2022).</span></li>
+            <li><span class="pub-index">65.</span><span class="pub-text">Guannan He, Xinjiang Chen, Yu Yang, Jianxiao Wang, Jie Song. “Hybrid portable and stationary energy storage systems with battery charging and swapping coordination.” 2022 IEEE/IAS Industrial and Commercial Power System Asia (I&amp;CPS Asia) (2022): 1465-1470.</span></li>
+          </ol></section>
+          <section class="bio-card content-card publication-card"><h2>预印本</h2><ol class="pub-list">
+            <li><span class="pub-index">10.</span><span class="pub-text">Yuke Zhou, Ruiyang Jin, Siyang Gao, Jianxiao Wang, Jie Song. “A Zeroth-Order Extra-Gradient Method for Black-Box Constrained Optimization.” arXiv (2025).</span></li>
+            <li><span class="pub-index">11.</span><span class="pub-text">Wenyue Xu, Xu Wan, Wei Wang, Wenqi Huang, Wotao Yin, Shengjie Zhao, Mingyang Sun. “AdapThink: Adaptive Thinking Preferences for Reasoning Language Model.” arXiv preprint arXiv:2506.18237 (2025): 9808-9825.</span></li>
+            <li><span class="pub-index">16.</span><span class="pub-text">Ziwei Wang, Ningyuan Chen, Jie Song. “Contextual Game Theory: Duopoly Pricing and Information Structure.” SSRN Electronic Journal (2025).</span></li>
+            <li><span class="pub-index">31.</span><span class="pub-text">Zongxian Wang, Jie Song. “Data monetization pathways and complex dynamic game equilibrium analysis in the energy industry.” arXiv (Cornell University) (2024).</span></li>
+            <li><span class="pub-index">32.</span><span class="pub-text">Ruiyang Jin, Zaiwei Chen, Yiheng Lin, Jie Song, Adam Wierman. “Approximate Global Convergence of Independent Learning in Multi-Agent Systems.” arXiv (2024).</span></li>
+            <li><span class="pub-index">42.</span><span class="pub-text">Zhaohao Ding, Jianxiao Wang, Yiyang Song, Xiaokang Zheng, Guannan He, Xiupeng Chen, Tiance Zhang, Wei-Jen Lee, Jie Song. “Tracking the Carbon Footprint of Global Generative Artificial Intelligence: Supplementary Information.” ResearchGate (2024).</span></li>
+            <li><span class="pub-index">43.</span><span class="pub-text">Ziwei Wang, Jingtong Zhao, Yixuan Liu, Jie Song. “Reinforcement learning algorithm for reusable resource allocation with time-varying reward.” SSRN Electronic Journal (2023).</span></li>
+            <li><span class="pub-index">45.</span><span class="pub-text">Ruiyang Jin, Yujie Tang, Jie Song. “Zeroth-order feedback-based optimization for distributed demand response.” arXiv (Cornell University) (2023).</span></li>
+            <li><span class="pub-index">55.</span><span class="pub-text">Xinjiang Chen, Yu Yang, Jianxiao Wang, Jie Song, Guannan He. “Battery Valuation and Management for Battery Swapping Station with an Intertemporal Framework.” arXiv (Cornell University) (2023).</span></li>
+          </ol></section>
+          <section class="bio-card content-card publication-card"><h2>图书章节</h2><ol class="pub-list">
+            <li><span class="pub-index">41.</span><span class="pub-text">Jianxiao Wang, Guannan He, Jie Song. “Hydrogen-Supported Microgrid toward Low-Carbon Energy Transition.” Microgrids: Theory and Practice (2024): 801-813.</span></li>
+          </ol></section>
+          <section class="bio-card content-card publication-card"><h2>已授权专利</h2><ol class="pub-list">
+            <li><span class="pub-index">1.</span><span class="pub-text">宋洁，何冠楠，白曾鼎，艾书荟. “一种政务问答大模型的评估方法、装置、设备及存储介质”. 国家发明专利，专利号：ZL202511697545.7. 2026年1月</span></li>
+            <li><span class="pub-index">2.</span><span class="pub-text">王艳华，张殿英，宋洁，王剑晓，王昱傑，张晓萌，张一翀，熊晨，付慧娟，秦枫. “一种针对肩袖缺失的变径省力肱骨假体”. 国家发明专利，专利号：ZL202511636308.X. 2026年6月</span></li>
+            <li><span class="pub-index">3.</span><span class="pub-text">姜平，宋洁，赵晨旭，傅天宇，苏安炀，虞喆，李梦林，卫海天，黄楠，吴明辉，吴昊宇，余嘉伟，忻役. “基于强化学习的模型优化方法、装置和电子设备”. 国家发明专利，专利号：ZL202511366392.8. 2026年1月</span></li>
+            <li><span class="pub-index">4.</span><span class="pub-text">宋洁，姜平，吴昊宇，赵晨旭，苏安炀，孟令瑄. “网页自动化交互方法、装置和电子设备”. 国家发明专利，专利号：ZL202511318443.X. 2026年1月</span></li>
+            <li><span class="pub-index">5.</span><span class="pub-text">姜平，宋洁，傅天宇，赵晨旭，苏安炀，虞喆，李梦林，黄楠，卫海天，吴明辉，余嘉伟，忻役. “界面操作指令生成方法、电子设备、存储介质及程序产品”. 国家发明专利，专利号：ZL202511212666.8. 2025年12月</span></li>
+            <li><span class="pub-index">6.</span><span class="pub-text">初军威，徐博涵，高锋，宋洁，黄静思. “一种基于YOLO-Unet的火灾检测方法及装置 ”. 国家发明专利，专利号：ZL202511196826.4. 2025年12月</span></li>
+            <li><span class="pub-index">7.</span><span class="pub-text">姜平，宋洁，傅天宇，赵晨旭，苏安炀，虞喆，李梦林，黄楠，吴明辉，余嘉伟，忻役. “动作序列执行方法、电子设备、存储介质及程序产品”. 国家发明专利，专利号：ZL202511149469.6. 2025年12月</span></li>
+            <li><span class="pub-index">8.</span><span class="pub-text">宋洁，何冠楠，龚起航，罗东，肖亨波，白曾鼎，艾书荟. “一种基于知识图谱和检索增强的政务问答方法及系统”. 国家发明专利，专利号：ZL202510670423.2. 2025年11月</span></li>
+            <li><span class="pub-index">9.</span><span class="pub-text">宋洁，姜平，吴昊宇，励景松，王紫薇，李珩周. “一种社交网络群体分类方法、系统、设备和存储介质”. 国家发明专利，专利号：ZL202510502868.X. 2025年8月</span></li>
+            <li><span class="pub-index">10.</span><span class="pub-text">黄晶，吴迪，宋洁，张平文. “政务问答系统的一种微调方法、装置、终端设备及介质”. 国家发明专利，专利号：ZL202510121461.2. 2025年7月</span></li>
+            <li><span class="pub-index">11.</span><span class="pub-text">黄晶，宋洁，张平文. “基于大模型的垂直网站信息抽取方法、装置、设备和介质”. 国家发明专利，专利号：ZL202411674263.0. 2025年8月</span></li>
+            <li><span class="pub-index">12.</span><span class="pub-text">鲁峰，谭小华，陈进文，张辉林，宋洁，何冠楠，龚起航. “设备诊断方法、装置和计算机设备”. 国家发明专利，专利号：ZL202411468251.2. 2025年10月</span></li>
+            <li><span class="pub-index">13.</span><span class="pub-text">黄晶，宋洁，张平文. “一种样本优选方法、装置、终端设备及介质”. 国家发明专利，专利号：ZL202411063230.2. 2025年2月</span></li>
+            <li><span class="pub-index">14.</span><span class="pub-text">宋洁，高雅，苏安炀，赵晨旭. “身份识别及其模型训练方法及装置”. 国家发明专利，专利号：ZL202410991190.1. 2025年8月</span></li>
+            <li><span class="pub-index">15.</span><span class="pub-text">王衍之，王剑晓，宋洁. “电网数据纯化方法、系统、设备及介质”. 国家发明专利，专利号：ZL202410817532.8. 2024年11月</span></li>
+            <li><span class="pub-index">16.</span><span class="pub-text">宋洁，姜平，吴昊宇，王紫薇，李珩周. “虚假用户的识别方法、系统、存储介质及电子设备”. 国家发明专利，专利号：ZL202410781891.2. 2024年11月</span></li>
+            <li><span class="pub-index">17.</span><span class="pub-text">徐慧兰，王榕金子，韩鑫明，刘恩东，尤鹏程，邱韫哲，宋洁. “云服务管理平台资源配置方法及系统”. 国家发明专利，专利号：ZL202410748731.8. 2024年12月</span></li>
+            <li><span class="pub-index">18.</span><span class="pub-text">宋洁，高雅. “一种数据分享方法、系统、设备及存储介质”. 国家发明专利，专利号：ZL202410649321.8. 2024年9月</span></li>
+            <li><span class="pub-index">19.</span><span class="pub-text">宋洁，高雅，崔健，刘建辉. “一种联合计算系统和方法”. 国家发明专利，专利号：ZL202410419342.0. 2024年8月</span></li>
+            <li><span class="pub-index">20.</span><span class="pub-text">何冠楠，丁永康，陈新江，宋洁. “基于多孔电极老化模型的移动储能在线决策方法及装置”. 国家发明专利，专利号：ZL202410089917.7. 2024年11月</span></li>
+            <li><span class="pub-index">21.</span><span class="pub-text">宋洁，何冠楠，张欣燕，肖亨波，白曾鼎，艾书荟，罗东，王剑晓. “数字报告的生成方法及装置、存储介质、电子设备”. 国家发明专利，专利号：ZL202311810308.8. 2025年2月</span></li>
+            <li><span class="pub-index">22.</span><span class="pub-text">金瑞杨，唐聿劼，宋洁，周宇珂. “分布式需求响应方法、装置、系统及介质”. 国家发明专利，专利号：ZL202310778813.2. 2023年9月</span></li>
+            <li><span class="pub-index">23.</span><span class="pub-text">邱韫哲，赵子健，黄静思，谢冬玮，宋洁. “一种控温仓库容量配置方法、装置、电子设备及存储介质”. 国家发明专利，专利号：ZL202310444614.8. 2023年8月</span></li>
+            <li><span class="pub-index">24.</span><span class="pub-text">陈新江，何冠楠，宋洁，丁永康. “混合储能系统库存路径规划方法、装置及电子设备”. 国家发明专利，专利号：ZL202211409098.7. 2023年2月</span></li>
+            <li><span class="pub-index">25.</span><span class="pub-text">丁永康，何冠楠，宋洁，陈新江. “一种基于深度强化学习的移动储能充放电时空规划方法”. 国家发明专利，专利号：ZL202211343226.2. 2023年3月</span></li>
+            <li><span class="pub-index">26.</span><span class="pub-text">陈新江，何冠楠，杨煜，宋洁. “一种基于混合储能系统的运行决策方法及系统”. 国家发明专利，专利号：ZL202210650713.7. 2022年9月</span></li>
+            <li><span class="pub-index">27.</span><span class="pub-text">宋洁，赵越，王衍之. “基于数据价值的数据处理装置及其方法”. 国家发明专利，专利号：ZL202210532391.6. 2025年11月</span></li>
+            <li><span class="pub-index">28.</span><span class="pub-text">张曦，李海霞，王立业，宋洁，王子睿，宋东红，杨蕊. “一次性无纺布检查床套”. 国家发明专利，专利号：ZL202120994105.9. 2021年12月</span></li>
+            <li><span class="pub-index">29.</span><span class="pub-text">时珊珊，田英杰，宋洁，金瑞杨，苏运，金妍斐. “针对台区用电特征的画像方法、装置和存储介质”. 国家发明专利，专利号：ZL202010849417.0. 2024年3月</span></li>
+            <li><span class="pub-index">30.</span><span class="pub-text">陆超，陈雪梅，宋洁，刘杰，吴京涛. “储能系统-火电机组联合调频控制方法”. 国家发明专利，专利号：ZL202010576284.4. 2022年3月</span></li>
+            <li><span class="pub-index">31.</span><span class="pub-text">宋洁，金瑞杨. “分层式储能系统及其参与的电网调频协调控制方法”. 国家发明专利，专利号：ZL201910789768.4. 2020年11月</span></li>
+          </ol></section>
+          <section class="bio-card content-card publication-card"><h2>已受理未授权专利</h2><ol class="pub-list">
+            <li><span class="pub-index">1.</span><span class="pub-text">侯弘毅，王剑晓，宋洁，宋懿洋，刘欣然，戴珍. “基于多智能体云边协同的广域电网安全调度方法及系统”. 国家发明专利，申请中</span></li>
+            <li><span class="pub-index">2.</span><span class="pub-text">王文婷，陈润材，王剑晓，宋洁. “一种融合知识蒸馏与物理一致性的空域风速预测方法”. 国家发明专利，申请中</span></li>
+            <li><span class="pub-index">3.</span><span class="pub-text">宋洁，王剑晓，邹洋，毛浩宇，陈修鹏，陆超，刘迪. “一种高空风力发电系统空地协同控制与容量配置方法及系统”. 国家发明专利，申请中</span></li>
+            <li><span class="pub-index">4.</span><span class="pub-text">宋洁，王剑晓，邹洋，毛浩宇，陈修鹏，陆超，刘迪. “一种空基高空风力发电系统最大发电功率跟踪控制方法”. 国家发明专利，申请中</span></li>
+            <li><span class="pub-index">5.</span><span class="pub-text">王剑晓，陈修鹏，宋洁，陆超，刘迪. “一种空天能量信息枢纽系统优化调控方法及装置”. 国家发明专利，申请中</span></li>
+            <li><span class="pub-index">6.</span><span class="pub-text">侯琛，牛培宇，崇滨，宋洁. “实体识别的方法、装置及电子设备”. 国家发明专利，申请中</span></li>
+            <li><span class="pub-index">7.</span><span class="pub-text">敖维蕗，孙铭阳，宋洁，张宗衍，吴佳耕，杨铮昊. “一种用于大语言模型安全性的多层防御机制及其实施系统”. 国家发明专利，申请中</span></li>
+            <li><span class="pub-index">8.</span><span class="pub-text">宋洁，徐博涵，王剑晓，王文婷. “结合RRT与ACO算法的飞行器航线规划方法及装置”. 国家发明专利，申请中</span></li>
+            <li><span class="pub-index">9.</span><span class="pub-text">孙铭阳，沈超，郭子涵，张宗衍，黄希鸣，宋洁. “基于大语言模型构建电力系统模型的方法、装置及设备”. 国家发明专利，申请中</span></li>
+            <li><span class="pub-index">10.</span><span class="pub-text">宋洁，朱磊. “基于多源大数据分析的心脑血管智能诊断模型生成方法”. 国家发明专利，申请中</span></li>
+            <li><span class="pub-index">11.</span><span class="pub-text">王皓靖，方陈，宋洁，杨心刚，张宇，何冠楠，柳劲松，宋嘉豪. “基于多维价值评估的分布式储能自适应激励方法及装置”. 国家发明专利，申请中</span></li>
+            <li><span class="pub-index">12.</span><span class="pub-text">宋洁，何冠楠，龚起航，白曾鼎. “政务系统优化方法、装置、非易失性存储介质及电子设备”. 国家发明专利，申请中</span></li>
+            <li><span class="pub-index">13.</span><span class="pub-text">王嘉梁，王剑晓，王阔，宋洁. “一种基于车网互动的城市电力系统韧性提升方法及装置”. 国家发明专利，申请中</span></li>
+            <li><span class="pub-index">14.</span><span class="pub-text">王嘉梁，王剑晓，宋懿洋，宋洁. “一种基于数据驱动安全域的微电网应急调度方法及系统”. 国家发明专利，申请中</span></li>
+            <li><span class="pub-index">15.</span><span class="pub-text">王嘉梁，王剑晓，宋懿洋，宋洁. “一种城市电力系统跨区联络线安全域快速计算方法及装置”. 国家发明专利，申请中</span></li>
+            <li><span class="pub-index">16.</span><span class="pub-text">何冠楠，宋洁，肖亨波，范竞元. “基于物理分离专家路由网络的科学计算与语言思维协同推理方法、系统及存储介质”. 国家发明专利，申请中</span></li>
+            <li><span class="pub-index">17.</span><span class="pub-text">姜平，宋洁，赵晨旭，傅天宇，苏安炀，虞喆，李梦林，黄楠，卫海天，吴明辉，吴昊宇，余嘉伟，忻役. “人工智能模型的问答方法、电子设备、可读存储介质和程序产品”. 国家发明专利，申请中</span></li>
+            <li><span class="pub-index">18.</span><span class="pub-text">宋洁，吕红，代旭，李剑，张嘉琪，高雅. “一种基于自动化采集的油价数据实时入库方法”. 国家发明专利，申请中</span></li>
+            <li><span class="pub-index">19.</span><span class="pub-text">王皓靖，严军，宋洁，方陈，杨心刚，何冠楠，张宇，吴政润. “分布式储能调控方法、装置、系统及介质”. 国家发明专利，申请中</span></li>
+            <li><span class="pub-index">20.</span><span class="pub-text">宋洁，高雅，李剑，高锋，王剑晓，任卫凯，张嘉琪，于思媛. “一种多热值的煤炭价格预测方法、装置及电子设备”. 国家发明专利，申请中</span></li>
+            <li><span class="pub-index">21.</span><span class="pub-text">陈晰，宋洁，王剑晓，王轶申，姚铁锤，魏仁杰，顾吉鹏，张嘉琪. “一种锂电池荷电状态估算方法和计算机存储介质”. 国家发明专利，申请中</span></li>
+            <li><span class="pub-index">22.</span><span class="pub-text">宋洁，何冠楠，徐博涵，肖亨波. “一种思维链生成方法、装置、设备及存储介质”. 国家发明专利，申请中</span></li>
+            <li><span class="pub-index">23.</span><span class="pub-text">严军，王皓靖，宋洁，方陈，张宇，何冠楠，时珊珊，陈俊康. “分布式储能系统及其功率预测方法、装置、充电站和介质”. 国家发明专利，申请中</span></li>
+            <li><span class="pub-index">24.</span><span class="pub-text">宋洁，何冠楠，肖亨波，朱骏豪，罗东. “数据查询方法、装置、电子设备及存储介质”. 国家发明专利，申请中</span></li>
+            <li><span class="pub-index">25.</span><span class="pub-text">宋洁，何冠楠，范竞元，艾秋媛，肖亨波. “奖励模型训练方法、问题评估方法、电子设备及存储介质”. 国家发明专利，申请中</span></li>
+            <li><span class="pub-index">26.</span><span class="pub-text">宋洁，何冠楠，曾劲标，肖亨波，艾秋媛，范竞元，周子人. “用于答案校验的模型训练方法、答案校验方法及设备”. 国家发明专利，申请中</span></li>
+            <li><span class="pub-index">27.</span><span class="pub-text">王丽平，宋洁，何冠楠，吴建国，张祺. “一种新能源发电消纳的储能计算方法”. 国家发明专利，申请中</span></li>
+            <li><span class="pub-index">28.</span><span class="pub-text">宋洁，李剑，高雅，高锋，于思媛，王剑晓，任卫凯. “一种基于多特征融合LSTM网络的煤价预测系统”. 国家发明专利，申请中</span></li>
+            <li><span class="pub-index">29.</span><span class="pub-text">王剑晓，宋懿洋，李建永，王文婷，宋洁，戴璟. “基于韧性价值曲线的储能灾前配置方法及装置”. 国家发明专利，申请中</span></li>
+            <li><span class="pub-index">30.</span><span class="pub-text">宋洁，何冠楠，龚起航，罗东，艾书荟，白曾鼎. “政务知识图谱构建方法及政务知识图谱应用方法及装置” .国家发明专利，申请中</span></li>
+            <li><span class="pub-index">31.</span><span class="pub-text">王丽平，宋洁，何冠楠，吴建国，张祺，吴政润，陈新江，邹宇轩. “一种全生命周期的储能-发电系统经济调度方法”. 国家发明专利，申请中</span></li>
+            <li><span class="pub-index">32.</span><span class="pub-text">宋洁，吴林翰，吕红，王剑晓，高锋，任卫凯. “一种氢能源项目在城市建设中的适用性评估方法”. 国家发明专利，申请中</span></li>
+            <li><span class="pub-index">33.</span><span class="pub-text">宋洁，王剑晓，于思媛，顾吉鹏，王文婷，任卫凯. “一种基于能源共享的电池储能健康管理方法和系统”. 国家发明专利，申请中</span></li>
+            <li><span class="pub-index">34.</span><span class="pub-text">宋洁，何冠楠，吴建国，张祺，王丽平，杨璐烨，陈新江，邹宇轩. “一种电化学储能电站的电池电力调度优化方法”. 国家发明专利，申请中</span></li>
+            <li><span class="pub-index">35.</span><span class="pub-text">宋洁，韩鑫明，王剑晓. “基于动态资源需求与Γ鲁棒优化的云计算虚拟机调度方法”. 国家发明专利，申请中</span></li>
+            <li><span class="pub-index">36.</span><span class="pub-text">宋洁，何冠楠，龚起航，肖亨波，文浩然，罗东，艾书荟. “文本标注方法、系统和计算机设备”. 国家发明专利，申请中</span></li>
+            <li><span class="pub-index">37.</span><span class="pub-text">宋洁，嵇士杰，谢文，高锋，冯晨禹，王一哲，纪鹏，杨宁，胡婉莉，孙鸿雁，白宇，潘加佳，刘杰. “基于数据质量评估的电力市场差分隐私联邦学习方法”. 国家发明专利，申请中</span></li>
+            <li><span class="pub-index">38.</span><span class="pub-text">宋洁，王剑晓，韩佳怡，郑玉文，谢冬玮，袁业浩，龙奕琳. “全行业碳排放计算方法、装置、系统及介质” .国家发明专利，申请中</span></li>
+            <li><span class="pub-index">39.</span><span class="pub-text">宋洁，韩佳怡，高锋，陈俊康，王剑晓，何冠楠. “电力数据多维度聚合方法、控制装置及存储介质”. 国家发明专利，申请中</span></li>
+            <li><span class="pub-index">40.</span><span class="pub-text">宋洁，何冠楠，龚起航，罗东，艾书荟，文浩然. “能碳数据分析方法、系统、电子设备及计算机存储介质” .国家发明专利，申请中</span></li>
+            <li><span class="pub-index">41.</span><span class="pub-text">宋洁，何冠楠，文浩然，罗东，龚起航，艾书荟，肖亨波. “一种基于RAG的文档问答方法、系统、设备及介质”. 国家发明专利，申请中</span></li>
+            <li><span class="pub-index">42.</span><span class="pub-text">宋洁，何冠楠，艾书荟，罗东，肖亨波，龚起航，文浩然，白曾鼎. “基于大模型的数据分析方法、装置和计算机设备”. 国家发明专利，申请中</span></li>
+            <li><span class="pub-index">43.</span><span class="pub-text">宋洁  何冠楠  罗东  龚起航  文浩然  艾书荟  肖亨波. “基于大模型的数据分析方法、装置及非易失性存储介质”. 国家发明专利，申请中</span></li>
+            <li><span class="pub-index">44.</span><span class="pub-text">宋洁，艾秋媛，王聪，赵越. “一种智能电表消费端的电负荷数据加密方法”. 国家发明专利，申请中</span></li>
+            <li><span class="pub-index">45.</span><span class="pub-text">宋洁，何冠楠，龚起航，罗东，李晓静，鲁峰，谭小华，宁睿，刘亿. “火电厂设备故障预警方法、装置和计算机设备”. 国家发明专利，申请中</span></li>
+            <li><span class="pub-index">46.</span><span class="pub-text">宋洁，姜平，吴昊宇，王紫薇，李珩周. “圈层人群的识别方法、装置、设备及计算机可读介质”. 国家发明专利，申请中</span></li>
+            <li><span class="pub-index">47.</span><span class="pub-text">宋洁，李剑，张嘉琪，王剑晓，高锋，王文婷. “基于数据时空灵活性和网络拓扑结构的电力系统控制方法”. 国家发明专利，申请中</span></li>
+            <li><span class="pub-index">48.</span><span class="pub-text">王剑晓，龙泽扬，宋懿洋，王毅，宋洁. “一种灾害场景下电动汽车应急支撑能力表征与决策方法”. 国家发明专利，申请中</span></li>
+            <li><span class="pub-index">49.</span><span class="pub-text">王剑晓，李建永，宋懿洋，于瀚卿，吴林翰，宋洁. “面向电网韧性增强的数据中心算力耦合调度方法及设备”. 国家发明专利，申请中</span></li>
+            <li><span class="pub-index">50.</span><span class="pub-text">王剑晓，葛依明，宋懿洋，邹洋，龙泽扬，宋洁. “考虑台风灾害影响的储能系统容量最优值确定方法及系统”. 国家发明专利，申请中</span></li>
+            <li><span class="pub-index">51.</span><span class="pub-text">宋洁，初军威，李巍，白曾鼎，张欣燕，艾书荟. “企业数字化转型评估方法、装置和计算机设备”. 国家发明专利，申请中</span></li>
+            <li><span class="pub-index">52.</span><span class="pub-text">宋洁，陈新江，何冠楠，王剑晓，李晓静，杨璐烨. “换电站的充放电与换电优化方法及存储介质和终端设备”. 国家发明专利，申请中</span></li>
+            <li><span class="pub-index">53.</span><span class="pub-text">任卫凯，宋洁，金之钧，王剑晓，高锋，吴林翰. “一种基于注意力深度网络的油气水三相流空隙率测量方法”. 国家发明专利，申请中</span></li>
+            <li><span class="pub-index">54.</span><span class="pub-text">张益国，宋洁，胡健祖，王剑晓，弭辙，何冠楠，王跃峰，李晓静，辛颂旭，王虓. “电力系统保供韧性分析方法、装置、计算机设备及介质”. 国家发明专利，申请中</span></li>
+            <li><span class="pub-index">55.</span><span class="pub-text">何冠楠，宋洁，龚起航，李晓静，王剑晓，李巍，肖亨波. “火电厂智能问答方法、装置、计算机设备、及介质”. 国家发明专利，申请中</span></li>
+            <li><span class="pub-index">56.</span><span class="pub-text">王剑晓，卓之焕，吴宥蓁，陈新江，张碧丹，宋洁. “一种计及碳储能并网控制的配电网韧性增强方法及装置”. 国家发明专利，申请中</span></li>
+            <li><span class="pub-index">57.</span><span class="pub-text">王剑晓，宋懿洋，邹洋，戴璟，高锋，宋洁. “一种城市电力系统动态韧性域快速计算方法”. 国家发明专利，申请中</span></li>
+            <li><span class="pub-index">58.</span><span class="pub-text">王剑晓，潘丽，王衍之，李佳蓉，黄静思，宋洁. “面向电网韧性提升的可再生能源制氨系统容量配置方法”. 国家发明专利，申请中</span></li>
+          </ol></section>
+        </div>
+      </section>
+
+      <section class="page content-section" id="honors">
+        <h1 class="page-title">奖励荣誉</h1>
+        <div class="content-cards">
+          <section class="bio-card content-card">
+            <h2>教学获奖</h2>
+            <ol class="award-list">
+              <li>北京市教育系统教书育人先锋（2024）</li>
+              <li>北京大学优秀教学团队奖（团队名称：工程数据分析与优化）（2024）</li>
+              <li>北京市应急学科带头人（2023）</li>
+              <li>北京市高等教育教学成果一等奖（2022）</li>
+              <li>北京大学优秀博士学位论文指导老师（2022）</li>
+              <li>中国工程管理案例大赛“最佳指导教师”奖，全国工程管理专业学位研究生教育指导委员会（2021）</li>
+              <li>北京大学教学成果特等奖（2021）</li>
+            </ol>
+          </section>
+          <section class="bio-card content-card">
+            <h2>科研获奖</h2>
+            <ol class="award-list">
+              <li>中国工业与应用数学学会 CSIAM 应用数学落地成果奖（2025）</li>
+              <li>中国电工技术学会科技进步二等奖（2023）</li>
+              <li>北京市应急学科带头人（2023）</li>
+              <li>中国系统工程学会青年奖（2022）</li>
+              <li>日内瓦国际发明特别展金奖（2022、2024）</li>
+              <li>华人学者管理科学与工程年会最佳管理实践奖（2022）</li>
+              <li>IEEE I&amp;CPS Asia 2022 最佳论文奖（2022）</li>
+              <li>国际工业与系统工程 IISE Transactions 最佳论文荣誉奖（2021）</li>
+            </ol>
+          </section>
+        </div>
+      </section>
+
+      <section class="page content-section" id="team">
+        <h1 class="page-title">团队成员</h1>
+        <div class="content-cards">
+          <section class="bio-card content-card"><h2>博士研究生（在读）</h2>
+            <div class="team-member">
+              <img class="team-member-photo" src="images/team/yan-zhi-wang.jpg" alt="王衍之">
+              <div class="team-member-info">
+                <h3 class="team-member-name">王衍之</h3>
+                <p><span class="team-member-label">教育经历：</span><span class="team-education">
+                  <span class="team-education-row"><span class="team-education-time">2022—至今</span><span>北京大学，工业与系统工程，博士研究生</span></span>
+                  <span class="team-education-row"><span class="team-education-time">2018—2022</span><span>北京大学，理论与应用力学，理学学士</span></span>
+                </span></p>
+                <p><span class="team-member-label">研究方向：</span>数据价值评估、数据驱动决策、能源系统优化</p>
+              </div>
+            </div>
+            <div class="team-member">
+              <img class="team-member-photo photo-xiedongwei" src="images/team/dongwei-xie.jpg" alt="谢冬玮">
+              <div class="team-member-info">
+                <h3 class="team-member-name">谢冬玮</h3>
+                <p><span class="team-member-label">教育经历：</span><span class="team-education">
+                  <span class="team-education-row"><span class="team-education-time">2016—2020</span><span>对外经济贸易大学，统计学院</span></span>
+                  <span class="team-education-row"><span class="team-education-time">2020—2023</span><span>中国人民大学，数学学院</span></span>
+                  <span class="team-education-row"><span class="team-education-time">2023—至今</span><span>北京大学，先进制造与机器人学院</span></span>
+                </span></p>
+                <p><span class="team-member-label">研究方向：</span>分布式优化、算电协同、算力服务</p>
+              </div>
+            </div>
+	    <div class="team-member">
+              <img class="team-member-photo" src="images/team/keyu-zhou.jpg" alt="周宇珂">
+              <div class="team-member-info">
+                <h3 class="team-member-name">周宇珂</h3>
+                <p><span class="team-member-label">教育经历：</span><span class="team-education">
+                  <span class="education-row"><span>北京大学工学院理论与应用力学专业学士</span></span>
+                  <span class="education-row"><span>现为北京大学先进制造与机器人学院力学（工业与系统工程）专业博士研究生</span></span>
+                </span></p>
+                <p><span class="team-member-label">研究方向：</span>能源领域的优化</p>
+              </div>
+            </div>
+	    <div class="team-member">
+              <img class="team-member-photo" src="images/team/qiuyuan-ai.png" alt="艾秋媛">
+              <div class="team-member-info">
+                <h3 class="team-member-name">艾秋媛</h3>
+                <p><span class="team-member-label">教育经历：</span><span class="team-education">
+                  <span class="education-row"><span>北京航空航天大学 本科</span></span>
+                  <span class="education-row"><span>北京大学 硕士</span></span>
+                </span></p>
+                <p><span class="team-member-label">研究方向：</span>大模型智能体及其应用</p>
+              </div>
+            </div>
+	    <div class="team-member">
+              <img class="team-member-photo" src="images/team/zhijian-zhan.jpeg" alt="詹志坚">
+              <div class="team-member-info">
+                <h3 class="team-member-name">詹志坚</h3>
+                <p><span class="team-member-label">教育经历：</span><span class="team-education">
+                  <span class="team-education-row"><span class="team-education-time">2016-2020</span><span>本科 北京大学 元培学院 获经济学学士学位</span></span>
+                </span></p>
+                <p><span class="team-member-label">研究方向：</span>算力系统建模、运筹优化</p>
+              </div>
+            </div>
+            <div class="team-member">
+              <img class="team-member-photo" src="images/team/jianxiang-li.jpeg" alt="李健翔">
+              <div class="team-member-info">
+                <h3 class="team-member-name">李健翔</h3>
+                <p><span class="team-member-label">教育经历：</span><span class="team-education">
+                  <span class="team-education-row"><span class="team-education-time">2021-2025</span><span>清华大学电机工程与应用电子技术系 学士</span></span>
+                  <span class="team-education-row"><span class="team-education-time">2025至今</span><span>北京大学先进制造与机器人学院 博士生</span></span>
+                </span></p>
+                <p><span class="team-member-label">研究方向：</span>大模型智能体，电力系统优化</p>
+              </div>
+            </div>
+            <div class="team-member">
+              <img class="team-member-photo" src="images/team/shun-ao.jpg" alt="敖顺">
+              <div class="team-member-info">
+                <h3 class="team-member-name">敖顺</h3>
+                <p><span class="team-member-label">教育经历：</span><span class="team-education">
+                  <span class="team-education-row"><span class="team-education-time">2022-2026</span><span>北京大学 工学院 理论与应用力学（工程与科学计算）</span></span>
+                  <span class="team-education-row"><span class="team-education-time">2026-至今</span><span>北京大学先进制造与机器人学院 力学（工业与系统工程）</span></span>
+                </span></p>
+                <p><span class="team-member-label">研究方向：</span>电力市场中的电力交易问题，算力市场资源分配与机制设计问题</p>
+              </div>
+            </div>
+            <div class="team-member">
+              <img class="team-member-photo" src="images/team/jiayu-wu.jpg" alt="吴佳雨">
+              <div class="team-member-info">
+                <h3 class="team-member-name">吴佳雨</h3>
+                <p><span class="team-member-label">教育经历：</span><span class="team-education">
+                  <span class="team-education-row"><span class="team-education-time">2022-2026</span><span>清华大学新雅书院智能工程与创意设计专业 本科</span></span>
+                  <span class="team-education-row"><span class="team-education-time">2026-至今</span><span>北京大学先进制造与机器人学院 直博</span></span>
+                </span></p>
+                <p><span class="team-member-label">研究方向：</span>具身智能与优化</p>
+              </div>
+            </div>
+            <div class="team-member">
+              <img class="team-member-photo" src="images/team/peizhou-ge.jpeg" alt="葛培洲">
+              <div class="team-member-info">
+                <h3 class="team-member-name">葛培洲</h3>
+                <p><span class="team-member-label">教育经历：</span><span class="team-education">
+                  <span class="education-row"><span>本科 中国科学技术大学</span></span>
+                  <span class="education-row"><span>博士 北京大学</span></span>
+                </span></p>
+                <p><span class="team-member-label">研究方向：</span>原子技能</p>
+              </div>
+            </div>
+            <div class="team-member">
+              <img class="team-member-photo" src="images/team/hongyi-hou.jpg" alt="侯弘毅">
+              <div class="team-member-info">
+                <h3 class="team-member-name">侯弘毅</h3>
+                <p><span class="team-member-label">教育经历：</span><span class="team-education">
+                  <span class="team-education-row"><span class="team-education-time">2023-2027</span><span>北京大学数学科学学院</span></span>
+                </span></p>
+                <p><span class="team-member-label">研究方向：</span>具身智能</p>
+              </div>
+            </div>
+
+          </section>
+          <section class="bio-card content-card"><h2>硕士研究生（在读）</h2>
+            <div class="team-member">
+              <img class="team-member-photo" src="images/team/hengzhou-li.jpeg" alt="李珩周">
+              <div class="team-member-info">
+                <h3 class="team-member-name">李珩周</h3>
+                <p><span class="team-member-label">教育经历：</span><span class="team-education">
+                  <span class="team-education-row"><span class="team-education-time">2020-2024</span><span>北京大学工学院 理论与应用力学</span></span>
+                  <span class="team-education-row"><span class="team-education-time">2024-2027</span><span>北京大学力学与工程科学学院 机械</span></span>
+                </span></p>
+                <p><span class="team-member-label">研究方向：</span>社交网络与在线学习算法，云边协同计算，算电协同优化</p>
+              </div>
+            </div>
+            <div class="team-member">
+              <img class="team-member-photo" src="images/team/yi-chen.png" alt="陈奕">
+              <div class="team-member-info">
+                <h3 class="team-member-name">陈奕</h3>
+                <p><span class="team-member-label">教育经历：</span><span class="team-education">
+                  <span class="team-education-row"><span class="team-education-time">2024.09—至今</span><span>北京大学，机械专业，硕士研究生</span></span>
+                  <span class="team-education-row"><span class="team-education-time">2020.09—2024.06</span><span>武汉理工大学，轮机工程专业，工学学士</span></span>
+                </span></p>
+                <p><span class="team-member-label">研究方向：</span>数据中心、电网与储能系统的协同优化，关注算电协同，以及考虑电池老化的储能运行优化与多物理场建模</p>
+              </div>
+            </div>
+            <div class="team-member">
+              <img class="team-member-photo" src="images/team/linhan-wu.jpg" alt="吴林翰">
+              <div class="team-member-info">
+                <h3 class="team-member-name">吴林翰</h3>
+                <p><span class="team-member-label">教育经历：</span><span class="team-education">
+                  <span class="education-row"><span>北京大学2024级硕士</span></span>
+                </span></p>
+                <p><span class="team-member-label">研究方向：</span>锂电池寿命预测，车载大模型</p>
+              </div>
+            </div>
+            <div class="team-member">
+              <img class="team-member-photo" src="images/team/bingyang-wang.png" alt="王冰阳">
+              <div class="team-member-info">
+                <h3 class="team-member-name">王冰阳</h3>
+                <p><span class="team-member-label">教育经历：</span><span class="team-education">
+                  <span class="team-education-row"><span class="team-education-time">2021-2025</span><span>北京大学工学院理论与应用力学专业本科（辅修生物医学工程专业）</span></span>
+                </span></p>
+                <p><span class="team-member-label">研究方向：</span>数据中心宏观选址中的算力-能源时序耦合与低碳供能，供电系统与复杂网络鲁棒性</p>
+              </div>
+            </div>
+            <div class="team-member">
+              <img class="team-member-photo" src="images/team/haoyu-mao.jpg" alt="毛浩宇">
+              <div class="team-member-info">
+                <h3 class="team-member-name">毛浩宇</h3>
+                <p><span class="team-member-label">教育经历：</span><span class="team-education">
+                  <span class="education-row"><span>本科：北京化工大学 化学工程与工艺学士</span></span>
+                </span></p>
+                <p><span class="team-member-label">研究方向：</span>VLA 模型，强化学习，世界模型</p>
+              </div>
+            </div>
+            <div class="team-member">
+              <img class="team-member-photo" src="images/team/siyue-xiong.jpg" alt="熊思越">
+              <div class="team-member-info">
+                <h3 class="team-member-name">熊思越</h3>
+                <p><span class="team-member-label">教育经历：</span><span class="team-education">
+                  <span class="education-row"><span>本科就读于北京大学工学院</span></span>
+                </span></p>
+                <p><span class="team-member-label">研究方向：</span>电力系统、电力交易</p>
+              </div>
+            </div>
+            <div class="team-member">
+              <img class="team-member-photo" src="images/team/yizhuo-wang.jpg" alt="王一卓">
+              <div class="team-member-info">
+                <h3 class="team-member-name">王一卓</h3>
+                <p><span class="team-member-label">教育经历：</span><span class="team-education">
+                  <span class="team-education-row"><span class="team-education-time">2022-2026</span><span>本科 毕业于南开大学密码与网络空间安全学院 信息安全</span></span>
+                  <span class="team-education-row"><span class="team-education-time">2026-至今</span><span>硕士 北京大学先进制造与机器人学院 机械</span></span>
+                </span></p>
+                <p><span class="team-member-label">研究方向：</span>具身智能与端侧模型部署</p>
+              </div>
+            </div>
+
+          </section>
+          <section class="bio-card content-card"><h2>博士后（在站）</h2>
+            <div class="team-member">
+              <img class="team-member-photo photo-yangkaiming" src="images/team/kaiming-yang.jpeg" alt="杨锴名">
+              <div class="team-member-info">
+                <h3 class="team-member-name">杨锴名</h3>
+                <p><span class="team-member-label">教育经历：</span><span class="team-education">
+                  <span class="team-education-row"><span class="team-education-time">2020-2024</span><span>北京邮电大学 系统科学博士</span></span>
+                </span></p>
+                <p><span class="team-member-label">研究方向：</span>基于多源大数据与运筹优化的光电新材料产业链与配套能源系统决策研究</p>
+              </div>
+            </div>
+            <div class="team-member">
+              <img class="team-member-photo" src="images/team/tengfei-wu.jpg" alt="吴腾飞">
+              <div class="team-member-info">
+                <h3 class="team-member-name">吴腾飞</h3>
+                <p><span class="team-member-label">教育经历：</span><span class="team-education">
+                  <span class="team-education-row"><span class="team-education-time">2025.11--2027.10</span><span>北京大学  博士后</span></span>
+                  <span class="team-education-row"><span class="team-education-time">2020.09--2024.09</span><span>西南交通大学  博士</span></span>
+                  <span class="team-education-row"><span class="team-education-time">2016.09--2019.06</span><span>四川农业大学   硕士 </span></span>
+                  <span class="team-education-row"><span class="team-education-time">2012.09--2016.06</span><span>四川农业大学   学士</span></span>
+                </span></p>
+                <p><span class="team-member-label">研究方向：</span>具身智能机器人协同作业与智能决策；人机协同制造与再制造系统优化</p>
+              </div>
+            </div>
+            <div class="team-member">
+              <img class="team-member-photo" src="images/team/xiaoju-shang.jpg" alt="尚晓菊">
+              <div class="team-member-info">
+                <h3 class="team-member-name">尚晓菊</h3>
+                <p><span class="team-member-label">教育经历：</span><span class="team-education">
+                  <span class="team-education-row"><span class="team-education-time">2019.09-2022.06</span><span>湘潭大学 硕士</span></span>
+                  <span class="team-education-row"><span class="team-education-time">2022.09-2026.06</span><span>湘潭大学 博士</span></span>
+                  <span class="team-education-row"><span class="team-education-time">2023.10-2026.01</span><span>昆士兰科技大学 访问学者 </span></span>
+                </span></p>
+                <p><span class="team-member-label">研究方向：</span>最优化理论与算法</p>
+              </div>
+            </div>
+
+          </section>
+          <section class="bio-card content-card"><h2>Alumni (former PhD &amp; PostDoc)</h2>
+            <div class="team-member"><img class="team-member-photo" src="images/team/yang-zou.jpg" alt="邹洋"><div class="team-member-info"><h3 class="team-member-name">邹洋</h3><p class="alumni-degree"><span class="team-member-label">已毕业博士</span></p><p><span class="team-member-label">当前工作单位：</span>中国电力科学研究院</p></div></div>
+            <div class="team-member"><img class="team-member-photo" src="images/team/ziwei-wang.jpeg" alt="王紫薇"><div class="team-member-info"><h3 class="team-member-name">王紫薇</h3><p class="alumni-degree"><span class="team-member-label">已毕业博士</span></p><p><span class="team-member-label">当前工作单位：</span>北京大学数学科学学院博士后</p></div></div>
+            <div class="team-member"><img class="team-member-photo" src="images/team/ruiyang-jin.jpeg" alt="金瑞杨"><div class="team-member-info"><h3 class="team-member-name">金瑞杨</h3><p class="alumni-degree"><span class="team-member-label">已毕业博士</span></p><p><span class="team-member-label">当前工作单位：</span>香港城市大学</p></div></div>
+            <div class="team-member"><img class="team-member-photo" src="images/team/bohan-xu.png" alt="徐博涵"><div class="team-member-info"><h3 class="team-member-name">徐博涵</h3><p class="alumni-degree"><span class="team-member-label">已毕业硕士</span></p><p><span class="team-member-label">当前工作单位：</span>北京大学医学部</p></div></div>
+            <div class="team-member"><img class="team-member-photo" src="images/team/yehao-yuan.jpg" alt="袁业浩"><div class="team-member-info"><h3 class="team-member-name">袁业浩</h3><p class="alumni-degree"><span class="team-member-label">已毕业硕士</span></p><p><span class="team-member-label">当前工作单位：</span>莉莉丝游戏</p></div></div>
+            <div class="team-member no-photo-member"><div class="team-member-info"><h3 class="team-member-name">高锋</h3><p class="alumni-degree"><span class="team-member-label">已出站博后</span></p><p><span class="team-member-label">当前工作单位：</span>北京工业大学</p></div></div>
+            <div class="team-member no-photo-member"><div class="team-member-info"><h3 class="team-member-name">王子阳</h3><p class="alumni-degree"><span class="team-member-label">已毕业博士</span></p><p><span class="team-member-label">当前工作单位：</span>中国电子技术标准化研究院</p></div></div>
+            <div class="team-member no-photo-member"><div class="team-member-info"><h3 class="team-member-name">张帆</h3><p class="alumni-degree"><span class="team-member-label">已毕业博士</span></p><p><span class="team-member-label">当前工作单位：</span>中国科学院数学与系统科学研究院</p></div></div>
+            <div class="team-member no-photo-member"><div class="team-member-info"><h3 class="team-member-name">韩鑫明</h3><p class="alumni-degree"><span class="team-member-label">已毕业博士</span></p><p><span class="team-member-label">当前工作单位：</span>华为技术有限公司</p></div></div>
+            <div class="team-member no-photo-member"><div class="team-member-info"><h3 class="team-member-name">张凌宇</h3><p class="alumni-degree"><span class="team-member-label">已毕业硕士</span></p><p><span class="team-member-label">当前工作单位：</span>中国工商银行总行</p></div></div>
+            <div class="team-member no-photo-member"><div class="team-member-info"><h3 class="team-member-name">郑玉文</h3><p class="alumni-degree"><span class="team-member-label">已毕业硕士</span></p><p><span class="team-member-label">当前工作单位：</span>杭州青禾智初科技有限公司，产品经理</p></div></div>
+            <div class="team-member no-photo-member"><div class="team-member-info"><h3 class="team-member-name">文涵祺</h3><p class="alumni-degree"><span class="team-member-label">已毕业硕士</span></p><p><span class="team-member-label">当前工作单位：</span>密歇根大学博士在读</p></div></div>
+          </section>
+        </div>
+      </section>
+  </main>
+
+  <dialog class="news-dialog" id="news-dialog" aria-label="新闻详情">
+    <div class="news-dialog-toolbar"><span>主页新闻</span><button class="news-dialog-close" type="button" data-news-close>关闭</button></div>
+    <div class="news-dialog-content" id="news-dialog-content"></div>
+  </dialog>
+  <footer>© <span id="year"></span> 宋洁 Song Jie · 个人主页</footer>
+  <script>
+    const links = document.querySelectorAll('[data-page]');
+    const pages = document.querySelectorAll('.page');
+    function showPage(id) {
+      const target = document.getElementById(id) ? id : 'home';
+      pages.forEach(page => page.classList.toggle('active', page.id === target));
+      document.querySelectorAll('.nav-link').forEach(link => {
+        const selected = link.dataset.page === target;
+        link.classList.toggle('active', selected);
+        if (selected) link.setAttribute('aria-current', 'page');
+        else link.removeAttribute('aria-current');
+      });
+      window.scrollTo(0, 0);
+    }
+    links.forEach(link => link.addEventListener('click', event => {
+      event.preventDefault();
+      const id = link.dataset.page;
+      history.pushState(null, '', '#' + id);
+      showPage(id);
+    }));
+    window.addEventListener('popstate', () => showPage(location.hash.slice(1)));
+    if (location.hash) showPage(location.hash.slice(1));
+    document.querySelectorAll('.team-member-slots').forEach(template => {
+      const section = template.closest('.bio-card');
+      template.content.querySelectorAll('.team-member').forEach(slot => {
+        const photo = slot.querySelector('.team-member-photo');
+        const name = slot.querySelector('.team-member-name');
+        const info = slot.querySelector('.team-member-info');
+        const hasPhoto = photo.getAttribute('src') !== 'images/team/照片文件名.jpg';
+        const hasName = name.textContent.trim() !== '姓名';
+        const hasDetails = !info.textContent.includes('填写研究方向') && !info.textContent.includes('学校、院系、学位或身份');
+        if (hasPhoto && hasName && hasDetails) section.insertBefore(slot.cloneNode(true), template);
+      });
+    });
+    const newsDialog = document.getElementById('news-dialog');
+    const newsDialogContent = document.getElementById('news-dialog-content');
+    document.querySelectorAll('[data-news-open]').forEach(button => button.addEventListener('click', () => {
+      const template = button.closest('.news-card').querySelector('.news-detail-template');
+      const detail = template.content.cloneNode(true);
+      const title = detail.querySelector('h2');
+      title.id = 'news-dialog-title';
+      detail.querySelectorAll('img').forEach(img => { img.loading = 'eager'; });
+      newsDialog.setAttribute('aria-labelledby', 'news-dialog-title');
+      newsDialogContent.replaceChildren(detail);
+      newsDialog.showModal();
+    }));
+    document.querySelector('[data-news-close]').addEventListener('click', () => newsDialog.close());
+    newsDialog.addEventListener('click', event => { if (event.target === newsDialog) newsDialog.close(); });
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
